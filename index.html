@@ -923,7 +923,6 @@
             <a onclick="showQuiz()" class="test-link">🎯 Test</a>
             <a onclick="generateIELTSWord()">📚 IELTS Word</a>
             <a onclick="showProfile()">👤 Profil</a>
-            <a onclick="window.open('ai-teacher-new.html', '_blank')" style="background: linear-gradient(135deg, #f59e0b 0%, #ef4444 100%);">🤖 AI Teacher</a>
         </nav>
     </header>
 
@@ -967,10 +966,6 @@
                     <div style="background: rgba(6, 182, 212, 0.1); padding: 15px; border-radius: 8px;">
                         <h5 style="color: #f59e0b; margin: 0;">👤 Foydalanuvchi Profili</h5>
                         <p style="color: white; font-size: 1.1em; margin: 5px 0;">Shaxsiy statistika va yutuqlar</p>
-                    </div>
-                    <div style="background: rgba(6, 182, 212, 0.1); padding: 15px; border-radius: 8px;">
-                        <h5 style="color: #ef4444; margin: 0;">🤖 AI Teacher</h5>
-                        <p style="color: white; font-size: 1.1em; margin: 5px 0;">Fantastik dunyo bo'ylab o'rganish</p>
                     </div>
                 </div>
             </div>
@@ -1020,12 +1015,49 @@
 
         <div class="auth-container">
             <h2>👤 Foydalanuvchi Profili</h2>
-            <div style="text-align: center; margin-bottom: 30px;">
-                <div style="width: 80px; height: 80px; background: linear-gradient(135deg, #06B6D4 0%, #2563EB 100%); border-radius: 50%; margin: 0 auto 20px; display: flex; align-items: center; justify-content: center; font-size: 2em;">
+            
+            <!-- User Info Section -->
+            <div id="userInfoSection" style="display: block; text-align: center; margin-bottom: 30px;">
+                <div style="width: 80px; height: 80px; background: linear-gradient(135deg, #06B6D4 0%, #2563EB 100%); border-radius: 50%; margin: 0 auto 20px; display: flex; align-items: center; justify-content: center; font-size: 2em; cursor: pointer;" onclick="toggleEditMode()" id="avatarDisplay">
                     👤
                 </div>
-                <h3 style="color: #06B6D4; margin: 0;">ZENTRIXA Foydalanuvchisi</h3>
-                <p style="color: #94A3B8; margin: 5px 0;">Bepul versiya</p>
+                <h3 style="color: #06B6D4; margin: 0;" id="displayName">Mehmon Foydalanuvchi</h3>
+                <p style="color: #94A3B8; margin: 5px 0;" id="displayEmail">Email kiritilmagan</p>
+                <p style="color: #10b981; margin: 5px 0; font-size: 0.9em;">📅 Qo'shilgan: <span id="joinDate">Bugun</span></p>
+            </div>
+            
+            <!-- Edit Form Section -->
+            <div id="editFormSection" style="display: none; margin-bottom: 30px;">
+                <h4 style="color: #06B6D4; margin: 0 0 15px 0;">✏️ Profilni Tahrirlash</h4>
+                <input type="text" id="userName" placeholder="Ismingizni kiriting" style="width: 100%; padding: 10px; margin-bottom: 10px; border: none; border-radius: 6px; background: #0F172A; color: white;">
+                <input type="email" id="userEmail" placeholder="Email manzilingiz" style="width: 100%; padding: 10px; margin-bottom: 10px; border: none; border-radius: 6px; background: #0F172A; color: white;">
+                <input type="number" id="userAge" placeholder="Yoshingiz" min="5" max="100" style="width: 100%; padding: 10px; margin-bottom: 10px; border: none; border-radius: 6px; background: #0F172A; color: white;">
+                <select id="userLevel" style="width: 100%; padding: 10px; margin-bottom: 10px; border: none; border-radius: 6px; background: #0F172A; color: white;">
+                    <option value="">Ingliz tili darajangiz</option>
+                    <option value="A1">A1 - Boshlang'ich</option>
+                    <option value="A2">A2 - Elementary</option>
+                    <option value="B1">B1 - Intermediate</option>
+                    <option value="B2">B2 - Upper Intermediate</option>
+                    <option value="C1">C1 - Advanced</option>
+                </select>
+                <select id="userGoal" style="width: 100%; padding: 10px; margin-bottom: 15px; border: none; border-radius: 6px; background: #0F172A; color: white;">
+                    <option value="">O'rganish maqsadingiz</option>
+                    <option value="ielts">IELTS imtihoni</option>
+                    <option value="toefl">TOEFL imtihoni</option>
+                    <option value="travel">Sayohat</option>
+                    <option value="work">Ish</option>
+                    <option value="study">O'qish</option>
+                    <option value="general">Umumiy rivojlanish</option>
+                </select>
+                <div style="display: flex; gap: 10px;">
+                    <button onclick="saveProfile()" class="submit-btn" style="flex: 1;">💾 Saqlash</button>
+                    <button onclick="cancelEdit()" class="back-btn" style="flex: 1;">Bekor qilish</button>
+                </div>
+            </div>
+            
+            <!-- Edit Button -->
+            <div id="editButtonSection" style="text-align: center; margin-bottom: 20px;">
+                <button onclick="toggleEditMode()" class="submit-btn" style="background: linear-gradient(135deg, #10b981 0%, #06b6d4 100%);">✏️ Profilni Tahrirlash</button>
             </div>
             
             <div style="background: rgba(6, 182, 212, 0.1); padding: 20px; border-radius: 10px; margin-bottom: 20px;">
@@ -1045,7 +1077,7 @@
                     </div>
                     <div style="text-align: center;">
                         <div style="font-size: 2em; color: #06B6D4; font-weight: bold;">∞</div>
-                        <div style="color: #94A3B8; font-size: 0.9em;">Cheksiz o'rganish</div>
+                        <div style="color: #94A3B8; font-size: 0.9em;">Cheksiz imkoniyatlar</div>
                     </div>
                 </div>
             </div>
@@ -1053,56 +1085,20 @@
             <div style="background: rgba(6, 182, 212, 0.1); padding: 20px; border-radius: 10px; margin-bottom: 20px;">
                 <h4 style="color: #06B6D4; margin: 0 0 15px 0;">🏆 Yutuqlar</h4>
                 <div style="display: flex; flex-wrap: wrap; gap: 10px;">
-                    <span style="background: #06B6D4; color: white; padding: 5px 10px; border-radius: 15px; font-size: 0.8em;">🎯 Test ustasi</span>
-                    <span style="background: #2563EB; color: rgb(255, 255, 255); padding: 5px 10px; border-radius: 15px; font-size: 0.8em;">📚 So'z yig'uvchi</span>
-                    <span style="background: #10b981; color: white; padding: 5px 10px; border-radius: 15px; font-size: 0.8em;">🌍 Global learner</span>
-                    <span style="background: #f59e0b; color: white; padding: 5px 10px; border-radius: 15px; font-size: 0.8em;">⚡ Tez o'rganuvchi</span>
+                    <span style="background: #06B6D4; color: white; padding: 5px 10px; border-radius: 15px; font-size: 0.8em;">🎯 Boshlang'ich</span>
+                    <span style="background: #2563EB; color: white; padding: 5px 10px; border-radius: 15px; font-size: 0.8em;">📚 Lug'at master</span>
+                    <span style="background: #10b981; color: white; padding: 5px 10px; border-radius: 15px; font-size: 0.8em;">🔥 5 kun</span>
+                    <span style="background: #f59e0b; color: white; padding: 5px 10px; border-radius: 15px; font-size: 0.8em;">⭐ Test champion</span>
                 </div>
             </div>
 
-            <div style="background: rgba(6, 182, 212, 0.1); padding: 20px; border-radius: 10px; margin-bottom: 20px;">
-                <h4 style="color: #06B6D4; margin: 0 0 15px 0;">📈 O'rganish darajalari</h4>
-                <div style="display: flex; flex-direction: column; gap: 10px;">
-                    <div style="display: flex; justify-content: space-between; align-items: center;">
-                        <span>A1 (Boshlang'ich)</span>
-                        <span style="color: #10b981;">✅ 80 so'z</span>
-                    </div>
-                    <div style="display: flex; justify-content: space-between; align-items: center;">
-                        <span>A2 (Elementary)</span>
-                        <span style="color: #10b981;">✅ 85 so'z</span>
-                    </div>
-                    <div style="display: flex; justify-content: space-between; align-items: center;">
-                        <span>B1 (Intermediate)</span>
-                        <span style="color: #f59e0b;">🔄 90 so'z</span>
-                    </div>
-                    <div style="display: flex; justify-content: space-between; align-items: center;">
-                        <span>B2 (Upper-Intermediate)</span>
-                        <span style="color: #ef4444;">⏳ 87 so'z</span>
-                    </div>
-                    <div style="display: flex; justify-content: space-between; align-items: center;">
-                        <span>C1 (Advanced)</span>
-                        <span style="color: #ef4444;">⏳ 95 so'z</span>
-                    </div>
-                </div>
-            </div>
-
-            <div style="text-align: center; margin-top: 30px;">
-                <button onclick="showVocab()" style="background: #06B6D4; color: white; border: none; padding: 12px 25px; border-radius: 8px; cursor: pointer; font-size: 1em; margin-bottom: 10px; width: 100%;">
-                    📚 Lug'atlarni O'rganish
-                </button>
-                <button onclick="showQuiz()" style="background: #2563EB; color: white; border: none; padding: 12px 25px; border-radius: 8px; cursor: pointer; font-size: 1em; width: 100%;">
-                    🎯 Test Qilish
-                </button>
+            <div style="text-align: center;">
+                <button onclick="showVocab()" class="submit-btn">Lug'atlarga Qaytish</button>
             </div>
         </div>
-
     </section>
 
-    <footer>
-        <p> 2026 ZENTRIX. All rights reserved.</p>
-    </footer>
-
-    <!-- IELTS Word Modal -->
+    <!-- IELTS Modal -->
     <div id="ieltsModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
@@ -1129,902 +1125,635 @@
                 { uz: "ona", en: "mother" },
                 { uz: "ota", en: "father" },
                 { uz: "do'st", en: "friend" },
-                { uz: "ish", en: "work" },
-                { uz: "kun", en: "day" },
-                { uz: "kecha", en: "night" },
-                { uz: "yil", en: "year" },
                 { uz: "bola", en: "child" },
-                { uz: "erkak", en: "man" },
-                { uz: "ayol", en: "woman" },
-                { uz: "stol", en: "table" },
-                { uz: "stul", en: "chair" },
-                { uz: "telefon", en: "phone" },
-                { uz: "yo'l", en: "road" },
-                { uz: "qora", en: "black" },
-                { uz: "oq", en: "white" },
+                { uz: "ish", en: "work" },
+                { uz: "vaqt", en: "time" },
+                { uz: "kun", en: "day" },
+                { uz: "yil", en: "year" },
+                { uz: "qo'l", en: "hand" },
+                { uz: "ko'z", en: "eye" },
+                { uz: "oyoq", en: "foot" },
+                { uz: "bosh", en: "head" },
+                { uz: "yurak", en: "heart" },
+                { uz: "qalb", en: "soul" }
+            ],
+            A2: [
+                { uz: "qiziqarli", en: "interesting" },
+                { uz: "muhim", en: "important" },
                 { uz: "katta", en: "big" },
                 { uz: "kichik", en: "small" },
                 { uz: "yaxshi", en: "good" },
                 { uz: "yomon", en: "bad" },
-                { uz: "issiq", en: "hot" },
-                { uz: "sovuq", en: "cold" },
-                { uz: "tekin", en: "free" },
-                { uz: "qimmat", en: "expensive" },
-                { uz: "arzon", en: "cheap" },
                 { uz: "yangi", en: "new" },
                 { uz: "eski", en: "old" },
-                { uz: "go'zal", en: "beautiful" },
-                { uz: "qiziq", en: "interesting" },
-                { uz: "oson", en: "easy" },
-                { uz: "qiyin", en: "difficult" },
-                { uz: "xavfli", en: "dangerous" },
-                { uz: "xavfsiz", en: "safe" },
-                { uz: "muvaffaqiyatli", en: "successful" },
-                { uz: "sog'lom", en: "healthy" }
-            ],
-            A2: [
-                { uz: "sayohat", en: "travel" },
-                { uz: "uchrashuv", en: "meeting" },
-                { uz: "savol", en: "question" },
-                { uz: "javob", en: "answer" },
-                { uz: "dars", en: "lesson" },
-                { uz: "mashq", en: "exercise" },
-                { uz: "bozor", en: "market" },
-                { uz: "kasal", en: "sick" },
-                { uz: "shifokor", en: "doctor" },
-                { uz: "dori", en: "medicine" },
-                { uz: "mehmon", en: "guest" },
-                { uz: "ofis", en: "office" },
-                { uz: "xona", en: "room" },
-                { uz: "mehmonxona", en: "hotel" },
-                { uz: "samolyot", en: "airplane" },
-                { uz: "poezd", en: "train" },
-                { uz: "avtobus", en: "bus" },
-                { uz: "chipta", en: "ticket" },
-                { uz: "ishchi", en: "worker" },
-                { uz: "o'qituvchi", en: "teacher" },
-                { uz: "talaba", en: "student" },
-                { uz: "universitet", en: "university" },
-                { uz: "kutubxona", en: "library" },
-                { uz: "restoran", en: "restaurant" },
-                { uz: "kofe", en: "coffee" },
-                { uz: "choy", en: "tea" },
-                { uz: "nonushta", en: "breakfast" },
-                { uz: "tushlik", en: "lunch" },
-                { uz: "kechki ovqat", en: "dinner" },
-                { uz: "transport", en: "transport" },
-                { uz: "avtomobil", en: "car" },
-                { uz: "velosiped", en: "bicycle" },
-                { uz: "metro", en: "metro" },
-                { uz: "aeroport", en: "airport" },
-                { uz: "vokzal", en: "station" },
-                { uz: "mahsulot", en: "product" },
-                { uz: "xizmat", en: "service" },
-                { uz: "kafolat", en: "guarantee" },
-                { uz: "shartnoma", en: "contract" },
-                { uz: "taklif", en: "offer" },
-                { uz: "narx", en: "price" },
-                { uz: "sifat", en: "quality" },
-                { uz: "miqdor", en: "quantity" },
-                { uz: "tartib", en: "order" },
-                { uz: "qoida", en: "rule" },
-                { uz: "huquq", en: "right" },
-                { uz: "majburiyat", en: "responsibility" }
+                { uz: "qizil", en: "red" },
+                { uz: "ko'k", en: "blue" },
+                { uz: "yashil", en: "green" },
+                { uz: "sariq", en: "yellow" },
+                { uz: "qora", en: "black" },
+                { uz: "oq", en: "white" },
+                { uz: "tezkor", en: "fast" },
+                { uz: "sekin", en: "slow" },
+                { uz: "issiq", en: "hot" },
+                { uz: "sovuq", en: "cold" },
+                { uz: "chiqish", en: "exit" },
+                { uz: "kirish", en: "enter" }
             ],
             B1: [
-                { uz: "tajriba", en: "experience" },
-                { uz: "maslahat", en: "advice" },
-                { uz: "munosabat", en: "relationship" },
-                { uz: "jamiyat", en: "society" },
-                { uz: "madaniyat", en: "culture" },
-                { uz: "an'ana", en: "tradition" },
-                { uz: "maqsad", en: "goal" },
-                { uz: "natija", en: "result" },
-                { uz: "loyiha", en: "project" },
-                { uz: "rahbar", en: "leader" },
-                { uz: "xodim", en: "employee" },
-                { uz: "mijoz", en: "client" },
-                { uz: "raqobat", en: "competition" },
-                { uz: "bozor", en: "market" },
-                { uz: "iqtisod", en: "economy" },
-                { uz: "ta'sir", en: "impact" },
-                { uz: "xizmat", en: "service" },
-                { uz: "texnologiya", en: "technology" },
-                { uz: "axborot", en: "information" },
-                { uz: "aloqa", en: "communication" },
-                { uz: "strategiya", en: "strategy" },
-                { uz: "tahlil", en: "analysis" },
-                { uz: "baholash", en: "evaluation" },
                 { uz: "rivojlanish", en: "development" },
-                { uz: "o'sish", en: "growth" },
-                { uz: "progress", en: "progress" },
-                { uz: "muvaffaqiyat", en: "success" },
-                { uz: "muvofiqlik", en: "compliance" },
-                { uz: "samara", en: "efficiency" },
-                { uz: "samaradorlik", en: "productivity" },
+                { uz: "texnologiya", en: "technology" },
+                { uz: "ta'lim", en: "education" },
+                { uz: "madaniyat", en: "culture" },
+                { uz: "iqtisodiyot", en: "economy" },
+                { uz: "siyosat", en: "politics" },
+                { uz: "salomatlik", en: "health" },
+                { uz: "atmosfera", en: "atmosphere" },
+                { uz: "muhit", en: "environment" },
+                { uz: "energiya", en: "energy" },
+                { uz: "kommunikatsiya", en: "communication" },
+                { uz: "informatsiya", en: "information" },
                 { uz: "innovatsiya", en: "innovation" },
                 { uz: "tadqiqot", en: "research" },
-                { uz: "kashfiyot", en: "discovery" },
-                { uz: "ixtiro", en: "invention" },
-                { uz: "ilmiy", en: "scientific" },
-                { uz: "akademik", en: "academic" },
-                { uz: "professional", en: "professional" },
-                { uz: "mutaxassis", en: "specialist" },
-                { uz: "ekspert", en: "expert" },
-                { uz: "konsultatsiya", en: "consultation" },
-                { uz: "rekomendatsiya", en: "recommendation" },
-                { uz: "xulosa", en: "conclusion" },
-                { uz: "qaror", en: "decision" },
-                { uz: "tanlov", en: "choice" },
-                { uz: "imkoniyat", en: "opportunity" },
-                { uz: "salohiyat", en: "potential" },
-                { uz: "qobiliyat", en: "ability" },
-                { uz: "ko'nikma", en: "skill" }
+                { uz: "analiz", en: "analysis" },
+                { uz: "strategiya", en: "strategy" },
+                { uz: "menejment", en: "management" },
+                { uz: "marketing", en: "marketing" },
+                { uz: "moliya", en: "finance" },
+                { uz: "investitsiya", en: "investment" }
             ],
             B2: [
-                { uz: "murakkab", en: "complex" },
-                { uz: "nazariya", en: "theory" },
-                { uz: "amaliyot", en: "practice" },
-                { uz: "innovatsion", en: "innovative" },
-                { uz: "raqamli", en: "digital" },
-                { uz: "global", en: "global" },
-                { uz: "muhim", en: "significant" },
-                { uz: "barqaror", en: "sustainable" },
-                { uz: "tadqiqot", en: "research" },
-                { uz: "yechim", en: "solution" },
-                { uz: "samarali", en: "efficient" },
-                { uz: "muvofiq", en: "appropriate" },
-                { uz: "jarayon", en: "process" },
-                { uz: "tizim", en: "system" },
-                { uz: "resurs", en: "resource" },
-                { uz: "rahbariyat", en: "management" },
-                { uz: "tashkilot", en: "organization" },
-                { uz: "muvaffaqiyatli", en: "successful" },
-                { uz: "sifat", en: "quality" },
-                { uz: "strategik", en: "strategic" },
-                { uz: "operativ", en: "operational" },
-                { uz: "taktik", en: "tactical" },
-                { uz: "analitik", en: "analytical" },
-                { uz: "mantiqiy", en: "logical" },
-                { uz: "ijodiy", en: "creative" },
-                { uz: "initsiativ", en: "initiative" },
+                { uz: "barqarorlik", en: "sustainability" },
+                { uz: "samaradorlik", en: "efficiency" },
                 { uz: "integratsiya", en: "integration" },
+                { uz: "globalizatsiya", en: "globalization" },
                 { uz: "transformatsiya", en: "transformation" },
                 { uz: "modernizatsiya", en: "modernization" },
+                { uz: "diversifikatsiya", en: "diversification" },
                 { uz: "optimizatsiya", en: "optimization" },
+                { uz: "standartizatsiya", en: "standardization" },
                 { uz: "avtomatlashtirish", en: "automation" },
-                { uz: "digitalizatsiya", en: "digitalization" },
+                { uz: "raqamli", en: "digital" },
                 { uz: "sun'iy intellekt", en: "artificial intelligence" },
-                { uz: "mashina o'rganishi", en: "machine learning" },
+                { uz: "blokchain", en: "blockchain" },
                 { uz: "kiberxavfsizlik", en: "cybersecurity" },
-                { uz: "blokcheyn", en: "blockchain" },
-                { uz: "kriptovalyuta", en: "cryptocurrency" },
-                { uz: "elektron tijorat", en: "e-commerce" },
-                { uz: "ijtimoiy media", en: "social media" },
                 { uz: "bulutli hisoblash", en: "cloud computing" },
                 { uz: "katta ma'lumotlar", en: "big data" },
-                { uz: "Internet narsalari", en: "Internet of Things" },
+                { uz: "internet narsalari", en: "internet of things" },
                 { uz: "virtual reallik", en: "virtual reality" },
                 { uz: "qo'shimcha reallik", en: "augmented reality" },
-                { uz: "kvant hisoblash", en: "quantum computing" },
-                { uz: "biotexnologiya", en: "biotechnology" },
-                { uz: "nanotexnologiya", en: "nanotechnology" }
+                { uz: "mashinasi o'rganish", en: "machine learning" }
             ],
             C1: [
-                { uz: "mukammal", en: "comprehensive" },
-                { uz: "innovatsion", en: "innovative" },
-                { uz: "globalizatsiya", en: "globalization" },
-                { uz: "tahliliy", en: "analytical" },
-                { uz: "mantiqiy", en: "logical" },
-                { uz: "konseptual", en: "conceptual" },
-                { uz: "intellektual", en: "intellectual" },
-                { uz: "strategik fikrlash", en: "strategic thinking" },
-                { uz: "murakkab tizim", en: "complex system" },
-                { uz: "raqobatbardosh", en: "competitive" },
-                { uz: "barqarorlik strategiyasi", en: "sustainability strategy" },
-                { uz: "resurslarni boshqarish", en: "resource management" },
-                { uz: "liderlik", en: "leadership" },
-                { uz: "hamkorlik muhiti", en: "collaborative environment" },
-                { uz: "qaror qabul qilish", en: "decision making" },
-                { uz: "ijodkorlik", en: "creativity" },
-                { uz: "tanqidiy fikrlash", en: "critical thinking" },
-                { uz: "barqaror o'sish", en: "sustainable growth" },
-                { uz: "muammoli vaziyat", en: "challenging situation" },
-                { uz: "ilmiy yondashuv", en: "scientific approach" },
-                { uz: "empirik tadqiqot", en: "empirical research" },
-                { uz: "gipotezani tekshirish", en: "hypothesis testing" },
-                { uz: "statistik tahlil", en: "statistical analysis" },
-                { uz: "kvantitativ usullar", en: "quantitative methods" },
-                { uz: "kvalitativ tadqiqot", en: "qualitative research" },
-                { uz: "interdisiplinar yondashuv", en: "interdisciplinary approach" },
-                { uz: "multidimensional tahlil", en: "multidimensional analysis" },
-                { uz: "paradigmatik siljish", en: "paradigm shift" },
-                { uz: "sistemli fikrlash", en: "systems thinking" },
-                { uz: "holistik yondashuv", en: "holistic approach" },
-                { uz: "sintetik tahlil", en: "synthetic analysis" },
-                { uz: "dialektik mantiq", en: "dialectical logic" },
-                { uz: "epistemologik asos", en: "epistemological foundation" },
-                { uz: "ontologik tushuncha", en: "ontological concept" },
-                { uz: "aksiologik qiymat", en: "axiological value" },
-                { uz: "teleologik maqsad", en: "teleological purpose" },
-                { uz: "metodologik asos", en: "methodological basis" },
-                { uz: "fenomenologik tahlil", en: "phenomenological analysis" },
-                { uz: "ekzistensial falsafa", en: "existential philosophy" },
-                { uz: "pragmatik falsafa", en: "pragmatic philosophy" },
-                { uz: "pozitivizm", en: "positivism" },
-                { uz: "postmodernizm", en: "postmodernism" },
-                { uz: "strukturalizm", en: "structuralism" },
-                { uz: "dekonstruktivizm", en: "deconstructionism" }
+                { uz: "antropologik", en: "anthropological" },
+                { uz: "sotsiologik", en: "sociological" },
+                { uz: "psixologik", en: "psychological" },
+                { uz: "filosofik", en: "philosophical" },
+                { uz: "etik", en: "ethical" },
+                { uz: "estetik", en: "aesthetic" },
+                { uz: "ontologik", en: "ontological" },
+                { uz: "epistemologik", en: "epistemological" },
+                { uz: "dialektik", en: "dialectical" },
+                { uz: "ermenevtik", en: "hermeneutic" },
+                { uz: "fenomenologik", en: "phenomenological" },
+                { uz: "ekzistensial", en: "existential" },
+                { uz: "struktural", en: "structural" },
+                { uz: "poststruktural", en: "poststructural" },
+                { uz: "dekonstruksion", en: "deconstructionist" },
+                { uz: "postmodern", en: "postmodern" },
+                { uz: "metafizik", en: "metaphysical" },
+                { uz: "transsendental", en: "transcendental" },
+                { uz: "immanent", en: "immanent" },
+                { uz: "kosmologik", en: "cosmological" }
             ]
         };
 
-        let currentLevel = 'A1';
-        let quizQuestions = [];
-        let quizAnswers = {};
-        let quizTimeLeft = 180;
-        let quizTimer = null;
-
-        // Quiz Questions Data
-        const QUIZ_QUESTIONS = {
+        const QUESTIONS = {
             A1: [
-                { question: "Hello qanday tarjima?", options: ["hayr", "salom", "xayr", "rahmat"], answer: "salom" },
-                { question: "Book nima?", options: ["kitob", "qalam", "daftar", "ruchka"], answer: "kitob" },
-                { question: "Water qanday?", options: ["suv", "choy", "qahva", "sharbat"], answer: "suv" },
-                { question: "House nima?", options: ["uy", "makon", "joy", "bino"], answer: "uy" },
-                { question: "Car qanday?", options: ["mashina", "velosiped", "poyezd", "samolyot"], answer: "mashina" },
-                { question: "School nima?", options: ["maktab", "universitet", "kollej", "institut"], answer: "maktab" },
-                { question: "Teacher qanday?", options: ["o'qituvchi", "o'quvchi", "direktor", "hamshira"], answer: "o'qituvchi" },
-                { question: "Student nima?", options: ["o'quvchi", "o'qituvchi", "o'qituvchi", "direktor"], answer: "o'quvchi" },
-                { question: "Friend qanday?", options: ["do'st", "dushman", "qarindosh", "tanish"], answer: "do'st" },
-                { question: "Family nima?", options: ["oilaviy", "jamoasi", "guruh", "jamoa"], answer: "oilaviy" },
-                { question: "Father qanday?", options: ["ota", "ona", "aka", "uka"], answer: "ota" },
-                { question: "Mother nima?", options: ["ona", "ota", "opa", "singil"], answer: "ona" },
-                { question: "Brother qanday?", options: ["aka", "uka", "dada", "bobo"], answer: "aka" },
-                { question: "Sister nima?", options: ["opa", "singil", "mama", "bibi"], answer: "opa" },
-                { question: "Love qanday?", options: ["sevgi", "nafrat", "do'stlik", "munosabat"], answer: "sevgi" },
-                { question: "Happy nima?", options: ["baxtli", "qayg'uli", "g'azabli", "xursand"], answer: "baxtli" },
-                { question: "Sad qanday?", options: ["qayg'uli", "baxtli", "xursand", "quvnoq"], answer: "qayg'uli" },
-                { question: "Good nima?", options: ["yaxshi", "yomon", "o'rtacha", "a'lo"], answer: "yaxshi" },
-                { question: "Bad qanday?", options: ["yomon", "yaxshi", "zo'r", "a'lo"], answer: "yomon" },
-                { question: "Big nima?", options: ["katta", "kichik", "o'rtacha", "normal"], answer: "katta" },
-                { question: "Small qanday?", options: ["kichik", "katta", "o'rtacha", "keng"], answer: "kichik" },
-                { question: "Hot nima?", options: ["issiq", "sovuq", "ilgiq", "salqin"], answer: "issiq" },
-                { question: "Cold qanday?", options: ["sovuq", "issiq", "ilgiq", "qizg'in"], answer: "sovuq" },
-                { question: "Fast nima?", options: ["tezkor", "sekin", "o'rtacha", "normal"], answer: "tezkor" },
-                { question: "Slow qanday?", options: ["sekin", "tezkor", "tez", "shoshilinch"], answer: "sekin" },
-                { question: "Easy nima?", options: ["oson", "qiyin", "murakkab", "nozik"], answer: "oson" },
-                { question: "Hard qanday?", options: ["qiyin", "oson", "sodda", "oddiy"], answer: "qiyin" },
-                { question: "New nima?", options: ["yangi", "eski", "zamonaviy", "qadimiy"], answer: "yangi" },
-                { question: "Old qanday?", options: ["eski", "yangi", "zamonaviy", "hozirgi"], answer: "eski" },
-                { question: "Young nima?", options: ["yosh", "qari", "o'rta yoshli", "katta"], answer: "yosh" },
-                { question: "Old age qanday?", options: ["qari", "yosh", "yoshlik", "o'smirlar"], answer: "qari" },
-                { question: "Today nima?", options: ["bugun", "ertaga", "kecha", "hozir"], answer: "bugun" },
-                { question: "Tomorrow qanday?", options: ["ertaga", "bugun", "kecha", "hozir"], answer: "ertaga" },
-                { question: "Yesterday nima?", options: ["kecha", "bugun", "ertaga", "hozir"], answer: "kecha" },
-                { question: "Now qanday?", options: ["hozir", "keyin", "oldin", "vaqtni"], answer: "hozir" },
-                { question: "Later nima?", options: ["keyin", "hozir", "oldin", "vaqtni"], answer: "keyin" },
-                { question: "Before qanday?", options: ["oldin", "keyin", "hozir", "vaqtni"], answer: "oldin" },
-                { question: "After nima?", options: ["keyin", "oldin", "hozir", "vaqtni"], answer: "keyin" },
-                { question: "Up qanday?", options: ["yuqoriga", "pastga", "chapga", "o'ngga"], answer: "yuqoriga" },
-                { question: "Down nima?", options: ["pastga", "yuqoriga", "chapga", "o'ngga"], answer: "pastga" },
-                { question: "Left qanday?", options: ["chapga", "o'ngga", "yuqoriga", "pastga"], answer: "chapga" },
-                { question: "Right nima?", options: ["o'ngga", "chapga", "yuqoriga", "pastga"], answer: "o'ngga" },
-                { question: "In nima?", options: ["ichida", "tashqarida", "ustida", "ostida"], answer: "ichida" },
-                { question: "Out qanday?", options: ["tashqarida", "ichida", "ustida", "ostida"], answer: "tashqarida" },
-                { question: "On nima?", options: ["ustida", "ostida", "ichida", "tashqarida"], answer: "ustida" },
-                { question: "Under qanday?", options: ["ostida", "ustida", "ichida", "tashqarida"], answer: "ostida" },
-                { question: "Yes nima?", options: ["ha", "yo'q", "albatta", "ehtimol"], answer: "ha" },
-                { question: "No qanday?", options: ["yo'q", "ha", "albatta", "ehtimol"], answer: "yo'q" },
-                { question: "Please nima?", options: ["iltimos", "rahmat", "kafolat", "uzr"], answer: "iltimos" },
-                { question: "Thank you qanday?", options: ["rahmat", "iltimos", "uzr", "kafolat"], answer: "rahmat" },
-                { question: "Sorry nima?", options: ["uzr", "rahmat", "iltimos", "kafolat"], answer: "uzr" },
-                { question: "Excuse me qanday?", options: ["uzr", "rahmat", "iltimos", "kafolat"], answer: "uzr" },
-                { question: "Goodbye nima?", options: ["xayr", "salom", "rahmat", "iltimos"], answer: "xayr" },
-                { question: "Hello again qanday?", options: ["salom", "xayr", "rahmat", "iltimos"], answer: "salom" },
-                { question: "How are you? nima?", options: ["qalaysiz", "rahmat", "salom", "xayr"], answer: "qalaysiz" },
-                { question: "I'm fine nima?", options: ["yaxshiman", "yomonman", "qalaysiz", "rahmat"], answer: "yaxshiman" },
-                { question: "What's your name? nima?", options: ["ismingiz nima", "qalaysiz", "rahmat", "salom"], answer: "ismingiz nima" },
-                { question: "My name is... nima?", options: ["mening ismim", "sening isming", "uning ismi", "ularning ismlari"], answer: "mening ismim" },
-                { question: "Where are you from? nima?", options: ["qayerdasiz", "qaysisiz", "qayerdan", "qandaysiz"], answer: "qayerdasiz" },
-                { question: "I'm from... nima?", options: ["men ...dan", "siz ...dan", "u ...dan", "ular ...dan"], answer: "men ...dan" },
-                { question: "How old are you? nima?", options: ["yoshingiz nechchi", "ismingiz nima", "qalaysiz", "qayerdasiz"], answer: "yoshingiz nechchi" },
-                { question: "I'm... years old nima?", options: ["men ...yoshdaman", "siz ...yoshdasiz", "u ...yoshda", "ular ...yoshda"], answer: "men ...yoshdaman" },
-                { question: "What time is it? nima?", options: ["so'at nechchi", "qalaysiz", "rahmat", "salom"], answer: "so'at nechchi" },
-                { question: "It's... o'clock nima?", options: ["so'at ...", "so'at nechchi", "qalaysiz", "rahmat"], answer: "so'at ..." },
-                { question: "Where is...? nima?", options: ["...qayerda", "...qaysi", "...qanday", "...nechchi"], answer: "...qayerda" },
-                { question: "It's... nima?", options: ["u ...da", "u ...qayerda", "u ...qanday", "u ...nechchi"], answer: "u ...da" },
-                { question: "What is this? nima?", options: ["bu nima", "bu qayerda", "bu qanday", "bu nechchi"], answer: "bu nima" },
-                { question: "This is... nima?", options: ["bu ...", "bu ...nima", "bu ...qayerda", "bu ...qanday"], answer: "bu ..." },
-                { question: "What are these? nima?", options: ["ular nima", "ular qayerda", "ular qanday", "ular nechchi"], answer: "ular nima" },
-                { question: "These are... nima?", options: ["ular ...", "ular ...nima", "ular ...qayerda", "ular ...qanday"], answer: "ular ..." },
-                { question: "Who is...? nima?", options: ["...kim", "...nima", "...qayerda", "...qanday"], answer: "...kim" },
-                { question: "He/She is... nima?", options: ["u ...", "u ...kim", "u ...nima", "u ...qayerda"], answer: "u ..." },
-                { question: "When is...? nima?", options: ["...qachon", "...qayerda", "...qanday", "...nechchi"], answer: "...qachon" },
-                { question: "It's... (time) nima?", options: ["...da", "...qachon", "...qayerda", "...qanday"], answer: "...da" },
-                { question: "Why...? nima?", options: ["...nima uchun", "...qayerda", "...qanday", "...nechchi"], answer: "...nima uchun" },
-                { question: "Because... nima?", options: ["chunki...", "...nima uchun", "...qayerda", "...qanday"], answer: "chunki..." },
-                { question: "Which...? nima?", options: ["...qaysi", "...nima", "...qayerda", "...qanday"], answer: "...qaysi" },
-                { question: "The... one nima?", options: ["...tasi", "...qaysi", "...nima", "...qayerda"], answer: "...tasi" },
-                { question: "How much/many...? nima?", options: ["...nechta", "...qaysi", "...nima", "...qayerda"], answer: "...nechta" },
-                { question: "There is/are... nima?", options: ["...bor", "...yo'q", "...bor", "...mavjud"], answer: "...bor" },
-                { question: "There isn't/aren't... nima?", options: ["...yo'q", "...bor", "...mavjud", "...bor"], answer: "...yo'q" },
-                { question: "Can you...? nima?", options: ["...qila olasizmi", "...qilamizmi", "...qilasizmi", "...qilamiz"], answer: "...qila olasizmi" },
-                { question: "Yes, I can nima?", options: ["ha, qila olaman", "yo'q, qila olmayman", "ha, qilaman", "yo'q, qilmayman"], answer: "ha, qila olaman" },
-                { question: "No, I can't nima?", options: ["yo'q, qila olmayman", "ha, qila olaman", "yo'q, qilmayman", "ha, qilaman"], answer: "yo'q, qila olmayman" },
-                { question: "Do you...? nima?", options: ["...mimi", "...mimi", "...mimi", "...mimi"], answer: "...mimi" },
-                { question: "Yes, I do nima?", options: ["ha, qilaman", "yo'q, qilmayman", "ha, qila olaman", "yo'q, qila olmayman"], answer: "ha, qilaman" },
-                { question: "No, I don't nima?", options: ["yo'q, qilmayman", "ha, qilaman", "yo'q, qila olmayman", "ha, qila olaman"], answer: "yo'q, qilmayman" },
-                { question: "Are you...? nima?", options: ["...mimi", "...mimi", "...mimi", "...mimi"], answer: "...mimi" },
-                { question: "Yes, I am nima?", options: ["ha, ...man", "yo'q, ...man emasman", "ha, ...man", "yo'q, ...man"], answer: "ha, ...man" },
-                { question: "No, I'm not nima?", options: ["yo'q, ...man emasman", "ha, ...man", "yo'q, ...man", "ha, ...man emasman"], answer: "yo'q, ...man emasman" },
-                { question: "What do you like? nima?", options: ["nima yoqtiradi", "nima yoqtirmaydi", "qanday", "qayerda"], answer: "nima yoqtiradi" },
-                { question: "I like... nima?", options: ["men ...yoqtiraman", "men ...yoqtirmayman", "men ...qilaman", "men ...qilmayman"], answer: "men ...yoqtiraman" },
-                { question: "What don't you like? nima?", options: ["nima yoqtirmaydi", "nima yoqtiradi", "qanday", "qayerda"], answer: "nima yoqtirmaydi" },
-                { question: "I don't like... nima?", options: ["men ...yoqtirmayman", "men ...yoqtiraman", "men ...qilaman", "men ...qilmayman"], answer: "men ...yoqtirmayman" },
-                { question: "I want... nima?", options: ["men ...xohlayman", "men ...xohlamayman", "men ...qilaman", "men ...qilmayman"], answer: "men ...xohlayman" },
-                { question: "I don't want... nima?", options: ["men ...xohlamayman", "men ...xohlayman", "men ...qilaman", "men ...qilmayman"], answer: "men ...xohlamayman" },
-                { question: "I need... nima?", options: ["men ...kerak", "men ...kerak emas", "men ...xohlayman", "men ...xohlamayman"], answer: "men ...kerak" },
-                { question: "I don't need... nima?", options: ["men ...kerak emas", "men ...kerak", "men ...xohlayman", "men ...xohlamayman"], answer: "men ...kerak emas" },
-                { question: "I have... nima?", options: ["men ...bor", "men ...yo'q", "men ...qilaman", "men ...qilmayman"], answer: "men ...bor" },
-                { question: "I don't have... nima?", options: ["men ...yo'q", "men ...bor", "men ...qilaman", "men ...qilmayman"], answer: "men ...yo'q" },
-                { question: "What is the opposite of 'light'?", options: ["heavy", "dark", "weighty", "heavy"], answer: "heavy" },
-                { question: "Which word means 'to speak'?", options: ["talk", "communicate", "converse", "speak"], answer: "speak" },
-                { question: "What is the opposite of 'long'?", options: ["short", "brief", "tiny", "short"], answer: "short" },
-                { question: "Which word means 'to write'?", options: ["compose", "create", "author", "write"], answer: "write" },
-                { question: "What is the opposite of 'tall'?", options: ["short", "small", "petite", "short"], answer: "short" },
-                { question: "Which word means 'to see'?", options: ["observe", "watch", "view", "look"], answer: "see" },
-                { question: "What is the opposite of 'high'?", options: ["low", "deep", "bottom", "low"], answer: "low" },
-                { question: "Which word means 'to hear'?", options: ["listen", "perceive", "detect", "hear"], answer: "hear" },
-                { question: "Which word means 'to give'?", options: ["provide", "offer", "present", "donate"], answer: "give" },
-                { question: "What is the opposite of 'new'?", options: ["old", "used", "ancient", "old"], answer: "old" },
-                { question: "Which word means 'to open'?", options: ["close", "shut", "seal", "shut"], answer: "open" },
-                { question: "Which word means 'to close'?", options: ["open", "shut", "seal", "close"], answer: "close" },
-                { question: "Which word means 'to start'?", options: ["begin", "commence", "initiate", "start"], answer: "start" },
-                { question: "Which word means 'to finish'?", options: ["end", "complete", "conclude", "finish"], answer: "finish" },
-                { question: "Which word means 'to win'?", options: ["lose", "defeat", "fail", "succeed"], answer: "succeed" },
-                { question: "Which word means 'to lose'?", options: ["win", "gain", "earn", "succeed"], answer: "lose" },
-                { question: "Which word means 'to love'?", options: ["hate", "dislike", "detest", "like"], answer: "like" },
-                { question: "Which word means 'to hate'?", options: ["love", "like", "enjoy", "dislike"], answer: "dislike" },
-                { question: "Which word means 'to come'?", options: ["go", "arrive", "approach", "come"], answer: "come" },
-                { question: "Which word means 'to go'?", options: ["stay", "remain", "depart", "leave"], answer: "go" },
-                { question: "Which word means 'to stay'?", options: ["go", "leave", "depart", "remain"], answer: "stay" },
-                { question: "Which word means 'to arrive'?", options: ["depart", "leave", "go", "arrive"], answer: "arrive" },
-                { question: "Which word means 'to leave'?", options: ["stay", "remain", "go", "depart"], answer: "leave" },
-                { question: "Which word means 'to remain'?", options: ["go", "leave", "depart", "stay"], answer: "remain" },
-                { question: "Which word means 'to enter'?", options: ["exit", "depart", "leave", "enter"], answer: "enter" },
-                { question: "Which word means 'to exit'?", options: ["enter", "stay", "remain", "leave"], answer: "exit" },
-                { question: "Which word means 'to increase'?", options: ["decrease", "reduce", "diminish", "grow"], answer: "grow" },
-                { question: "Which word means 'to decrease'?", options: ["increase", "grow", "expand", "shrink"], answer: "decrease" },
-                { question: "Which word means 'to grow'?", options: ["shrink", "reduce", "decrease", "expand"], answer: "grow" },
-                { question: "Which word means 'to shrink'?", options: ["grow", "expand", "increase", "reduce"], answer: "shrink" },
-                { question: "Which word means 'to expand'?", options: ["shrink", "reduce", "contract", "grow"], answer: "expand" },
-                { question: "Which word means 'to contract'?", options: ["expand", "grow", "increase", "shrink"], answer: "contract" }
+                { question: "Hello o'zbekcha nima?", options: ["salom", "xayr", "rahmat", "uzur"], answer: "salom" },
+                { question: "House o'zbekcha nima?", options: ["uy", "kitob", "maktab", "suv"], answer: "uy" },
+                { question: "Book o'zbekcha nima?", options: ["kitob", "uy", "do'st", "bola"], answer: "kitob" },
+                { question: "Water o'zbekcha nima?", options: ["suv", "ovaqat", "ona", "ota"], answer: "suv" },
+                { question: "Mother o'zbekcha nima?", options: ["ona", "ota", "do'st", "bola"], answer: "ona" },
+                { question: "Father o'zbekcha nima?", options: ["ota", "ona", "bola", "do'st"], answer: "ota" },
+                { question: "Friend o'zbekcha nima?", options: ["do'st", "dushman", "qarindosh", "hamkasb"], answer: "do'st" },
+                { question: "Child o'zbekcha nima?", options: ["bola", "katta", "kichik", "yosh"], answer: "bola" },
+                { question: "Work o'zbekcha nima?", options: ["ish", "dam olish", "uxlash", "o'qish"], answer: "ish" },
+                { question: "Time o'zbekcha nima?", options: ["vaqt", "joy", "kun", "yil"], answer: "vaqt" },
+                { question: "Day o'zbekcha nima?", options: ["kun", "tun", "ertalab", "kech"], answer: "kun" },
+                { question: "Year o'zbekcha nima?", options: ["yil", "oy", "hafta", "kun"], answer: "yil" },
+                { question: "Hand o'zbekcha nima?", options: ["qo'l", "oyoq", "bosh", "ko'z"], answer: "qo'l" },
+                { question: "Eye o'zbekcha nima?", options: ["ko'z", "quloq", "burun", "og'iz"], answer: "ko'z" },
+                { question: "Foot o'zbekcha nima?", options: ["oyoq", "qo'l", "bosh", "yurak"], answer: "oyoq" }
             ],
             A2: [
-                { question: "Sayohat nimani anglatadi?", options: ["meeting", "travel", "question", "lesson"], answer: "travel" },
-                { question: "'dars' inglizchada?", options: ["exercise", "lesson", "answer", "question"], answer: "lesson" },
-                { question: "Shifokor kim?", options: ["teacher", "doctor", "worker", "student"], answer: "doctor" },
-                { question: "'mehmon' qanday?", options: ["guest", "office", "room", "hotel"], answer: "guest" },
-                { question: "Samolyot qanday tarjima?", options: ["train", "bus", "airplane", "car"], answer: "airplane" },
-                { question: "'savol' nima?", options: ["answer", "question", "lesson", "exercise"], answer: "question" },
-                { question: "'javob' qanday?", options: ["question", "answer", "meeting", "travel"], answer: "answer" },
-                { question: "'mashq' nima?", options: ["lesson", "question", "exercise", "answer"], answer: "exercise" },
-                { question: "'bozor' nimani anglatadi?", options: ["market", "office", "room", "hotel"], answer: "market" },
-                { question: "'kasal' nima?", options: ["healthy", "sick", "well", "strong"], answer: "sick" },
-                { question: "'dori' qanday?", options: ["doctor", "disease", "medicine", "hospital"], answer: "medicine" },
-                { question: "'ofis' nima?", options: ["office", "room", "door", "window"], answer: "office" },
-                { question: "'xona' qanday?", options: ["office", "room", "hotel", "house"], answer: "room" },
-                { question: "'mehmonxona' nima?", options: ["house", "room", "hotel", "office"], answer: "hotel" },
-                { question: "'chipta' qanday?", options: ["train", "ticket", "bus", "airplane"], answer: "ticket" }
+                { question: "Interesting o'zbekcha nima?", options: ["qiziqarli", "zerikarli", "oddiy", "murakkab"], answer: "qiziqarli" },
+                { question: "Important o'zbekcha nima?", options: ["muhim", "ahamiyatsiz", "kichik", "oddiy"], answer: "muhim" },
+                { question: "Big o'zbekcha nima?", options: ["katta", "kichik", "o'rtacha", "norma"], answer: "katta" },
+                { question: "Small o'zbekcha nima?", options: ["kichik", "katta", "o'rtacha", "norma"], answer: "kichik" },
+                { question: "Good o'zbekcha nima?", options: ["yaxshi", "yomon", "o'rtacha", "noqulay"], answer: "yaxshi" },
+                { question: "Bad o'zbekcha nima?", options: ["yomon", "yaxshi", "a'lo", "qoniqarli"], answer: "yomon" },
+                { question: "New o'zbekcha nima?", options: ["yangi", "eski", "zamonaviy", "qadimiy"], answer: "yangi" },
+                { question: "Old o'zbekcha nima?", options: ["eski", "yangi", "zamonaviy", "yangi"], answer: "eski" },
+                { question: "Red o'zbekcha nima?", options: ["qizil", "ko'k", "yashil", "sariq"], answer: "qizil" },
+                { question: "Blue o'zbekcha nima?", options: ["ko'k", "qizil", "yashil", "oq"], answer: "ko'k" },
+                { question: "Green o'zbekcha nima?", options: ["yashil", "qizil", "ko'k", "qora"], answer: "yashil" },
+                { question: "Fast o'zbekcha nima?", options: ["tezkor", "sekin", "o'rtacha", "barqaror"], answer: "tezkor" },
+                { question: "Slow o'zbekcha nima?", options: ["sekin", "tezkor", "shoshilinch", "tez"], answer: "sekin" },
+                { question: "Hot o'zbekcha nima?", options: ["issiq", "sovuq", "iliq", "salqin"], answer: "issiq" },
+                { question: "Cold o'zbekcha nima?", options: ["sovuq", "issiq", "iliq", "qiziqarli"], answer: "sovuq" }
             ],
             B1: [
-                { question: "Tajriba nima?", options: ["advice", "experience", "relationship", "culture"], answer: "experience" },
-                { question: "'jamiyat' qanday inglizcha?", options: ["tradition", "society", "culture", "goal"], answer: "society" },
-                { question: "Madaniyat kim yoki nima?", options: ["leader", "culture", "service", "technology"], answer: "culture" },
-                { question: "'maqsad' qanday?", options: ["result", "goal", "project", "impact"], answer: "goal" },
-                { question: "Xizmat qanday tarjima?", options: ["information", "service", "communication", "impact"], answer: "service" },
-                { question: "'maslahat' nima?", options: ["experience", "advice", "relationship", "tradition"], answer: "advice" },
-                { question: "'munosabat' qanday?", options: ["experience", "advice", "relationship", "culture"], answer: "relationship" },
-                { question: "'an'ana' nimani anglatadi?", options: ["culture", "tradition", "society", "goal"], answer: "tradition" },
-                { question: "'natija' nima?", options: ["goal", "result", "project", "leader"], answer: "result" },
-                { question: "'loyiha' qanday?", options: ["leader", "employee", "project", "client"], answer: "project" },
-                { question: "'rahbar' kim?", options: ["employee", "client", "leader", "worker"], answer: "leader" },
-                { question: "'iqtisod' nima?", options: ["market", "economy", "service", "technology"], answer: "economy" },
-                { question: "'ta'sir' qanday?", options: ["service", "communication", "impact", "information"], answer: "impact" },
-                { question: "'axborot' nima?", options: ["communication", "information", "technology", "service"], answer: "information" },
-                { question: "'aloqa' qanday?", options: ["technology", "communication", "information", "impact"], answer: "communication" }
+                { question: "Development o'zbekcha nima?", options: ["rivojlanish", "tushkunlik", "stagnatsiya", "regress"], answer: "rivojlanish" },
+                { question: "Technology o'zbekcha nima?", options: ["texnologiya", "fan", "san'at", "adabiyot"], answer: "texnologiya" },
+                { question: "Education o'zbekcha nima?", options: ["ta'lim", "jaholat", "savodsizlik", "bexabarlik"], answer: "ta'lim" },
+                { question: "Culture o'zbekcha nima?", options: ["madaniyat", "vahshiylik", "jamiyatsizlik", "anarxiya"], answer: "madaniyat" },
+                { question: "Economy o'zbekcha nima?", options: ["iqtisodiyot", "siyosat", "huquq", "tibbiyot"], answer: "iqtisodiyot" },
+                { question: "Politics o'zbekcha nima?", options: ["siyosat", "iqtisodiyot", "madaniyat", "ta'lim"], answer: "siyosat" },
+                { question: "Health o'zbekcha nima?", options: ["salomatlik", "kasallik", "og'riq", "zaiflik"], answer: "salomatlik" },
+                { question: "Environment o'zbekcha nima?", options: ["muhit", "chekinma", "boshqa", "ajralma"], answer: "muhit" },
+                { question: "Energy o'zbekcha nima?", options: ["energiya", "xursandchilik", "g'am", "tashvish"], answer: "energiya" },
+                { question: "Communication o'zbekcha nima?", options: ["kommunikatsiya", "yolg'on", "sukunat", "karlik"], answer: "kommunikatsiya" },
+                { question: "Information o'zbekcha nima?", options: ["informatsiya", "noto'g'ri ma'lumot", "adashish", "xato"], answer: "informatsiya" },
+                { question: "Innovation o'zbekcha nima?", options: ["innovatsiya", "an'anaviylik", "qadimiylik", "eski usul"], answer: "innovatsiya" },
+                { question: "Research o'zbekcha nima?", options: ["tadqiqot", "bexabarlik", "e'tiborsizlik", "laqab"], answer: "tadqiqot" },
+                { question: "Analysis o'zbekcha nima?", options: ["analiz", "birlashma", "chalkashlik", "xato"], answer: "analiz" },
+                { question: "Strategy o'zbekcha nima?", options: ["strategiya", "taktika", "rejalarsizlik", "tasodif"], answer: "strategiya" }
             ],
             B2: [
-                { question: "Murakkab nimani anglatadi?", options: ["simple", "complex", "digital", "global"], answer: "complex" },
-                { question: "'nazariya' qanday?", options: ["practice", "theory", "innovation", "research"], answer: "theory" },
-                { question: "Innovatsiya nima?", options: ["digital", "innovation", "global", "sustainable"], answer: "innovation" },
-                { question: "'raqamli' qanday inglizcha?", options: ["digital", "global", "significant", "sustainable"], answer: "digital" },
-                { question: "Tadqiqot qanday tarjima?", options: ["solution", "efficient", "research", "system"], answer: "research" },
-                { question: "'amaliyot' nima?", options: ["theory", "practice", "innovation", "research"], answer: "practice" },
-                { question: "'global' qanday?", options: ["digital", "whole world", "significant", "local"], answer: "whole world" },
-                { question: "'muhim' nima?", options: ["digital", "significant", "sustainable", "global"], answer: "significant" },
-                { question: "'barqaror' qanday?", options: ["efficient", "sustainable", "digital", "global"], answer: "sustainable" },
-                { question: "'yechim' nima?", options: ["problem", "solution", "process", "system"], answer: "solution" },
-                { question: "'samarali' qanday?", options: ["efficient", "appropriate", "strategic", "successful"], answer: "efficient" },
-                { question: "'jarayon' nimani anglatadi?", options: ["system", "process", "resource", "management"], answer: "process" },
-                { question: "'tizim' nima?", options: ["process", "system", "resource", "management"], answer: "system" },
-                { question: "'resurs' qanday?", options: ["system", "resource", "management", "organization"], answer: "resource" },
-                { question: "'rahbariyat' nima?", options: ["organization", "management", "resource", "system"], answer: "management" }
+                { question: "Sustainability o'zbekcha nima?", options: ["barqarorlik", "beqarorlik", "vaqtincha", "o'tkinchi"], answer: "barqarorlik" },
+                { question: "Efficiency o'zbekcha nima?", options: ["samaradorlik", "samasizlik", "befarqlik", "beparvolik"], answer: "samaradorlik" },
+                { question: "Integration o'zbekcha nima?", options: ["integratsiya", "ajralish", "parokandalik", "bo'linish"], answer: "integratsiya" },
+                { question: "Globalization o'zbekcha nima?", options: ["globalizatsiya", "lokalizatsiya", "millatchilik", "izolyatsiya"], answer: "globalizatsiya" },
+                { question: "Transformation o'zbekcha nima?", options: ["transformatsiya", "o'zgarmaslik", "barqarorlik", "statik holat"], answer: "transformatsiya" },
+                { question: "Modernization o'zbekcha nima?", options: ["modernizatsiya", "qadimiylik", "an'anaviylik", "eski usul"], answer: "modernizatsiya" },
+                { question: "Digital o'zbekcha nima?", options: ["raqamli", "qo'lda", "analitik", "mexanik"], answer: "raqamli" },
+                { question: "Artificial intelligence o'zbekcha nima?", options: ["sun'iy intellekt", "tabiiy aql", "oddiy fikr", "oddiylik"], answer: "sun'iy intellekt" },
+                { question: "Cybersecurity o'zbekcha nima?", options: ["kiberxavfsizlik", "xavfsizlik", "xavf", "tahdid"], answer: "kiberxavfsizlik" },
+                { question: "Big data o'zbekcha nima?", options: ["katta ma'lumotlar", "kichik ma'lumotlar", "o'rtacha ma'lumot", "ma'lumot yo'q"], answer: "katta ma'lumotlar" },
+                { question: "Machine learning o'zbekcha nima?", options: ["mashinasi o'rganish", "odam o'rganishi", "hayvon o'rganishi", "o'rganmaslik"], answer: "mashinasi o'rganish" },
+                { question: "Cloud computing o'zbekcha nima?", options: ["bulutli hisoblash", "mahalliy hisoblash", "qog'oz hisoblash", "qo'l hisobi"], answer: "bulutli hisoblash" },
+                { question: "Internet of things o'zbekcha nima?", options: ["internet narsalari", "mahalliy narsalar", "an'anaviy narsalar", "eski narsalar"], answer: "internet narsalari" },
+                { question: "Virtual reality o'zbekcha nima?", options: ["virtual reallik", "haqiqiy reallik", "xayoliy reallik", "noto'g'ri reallik"], answer: "virtual reallik" },
+                { question: "Augmented reality o'zbekcha nima?", options: ["qo'shimcha reallik", "asosiy reallik", "boshqa reallik", "soxta reallik"], answer: "qo'shimcha reallik" }
             ],
             C1: [
-                { question: "Mukammal nimani anglatadi?", options: ["innovative", "comprehensive", "analytical", "intellectual"], answer: "comprehensive" },
-                { question: "'innovatsion' qanday englizcha?", options: ["analytical", "logical", "innovative", "conceptual"], answer: "innovative" },
-                { question: "Globalizatsiya nima?", options: ["globalization", "strategy", "development", "growth"], answer: "globalization" },
-                { question: "'tahliliy' qanday tarjima?", options: ["logical", "analytical", "conceptual", "intellectual"], answer: "analytical" },
-                { question: "Liderlik qanday?", options: ["creativity", "leadership", "growth", "achievement"], answer: "leadership" },
-                { question: "'mantiqiy' nima?", options: ["analytical", "logical", "intellectual", "creative"], answer: "logical" },
-                { question: "'konseptual' qanday?", options: ["analytical", "conceptual", "logical", "intellectual"], answer: "conceptual" },
-                { question: "'intellektual' nima?", options: ["creative", "intellectual", "analytical", "logical"], answer: "intellectual" },
-                { question: "'ijodiy' qanday?", options: ["analytical", "creative", "logical", "intellectual"], answer: "creative" },
-                { question: "'tanqidiy fikrlash' nima?", options: ["strategic thinking", "creative thinking", "critical thinking", "analytical thinking"], answer: "critical thinking" },
-                { question: "'strategik fikrlash' qanday?", options: ["creative thinking", "strategic thinking", "critical thinking", "analytical thinking"], answer: "strategic thinking" },
-                { question: "'barqaror o'sish' nimani anglatadi?", options: ["sustainable growth", "creative growth", "rapid growth", "strategic growth"], answer: "sustainable growth" },
-                { question: "'ijodkorlik' nima?", options: ["leadership", "creativity", "growth", "achievement"], answer: "creativity" },
-                { question: "'muvaffaqiyat omili' qanday?", options: ["failure factor", "success factor", "growth factor", "change factor"], answer: "success factor" },
-                { question: "'professional etik' nima?", options: ["professional ethics", "professional growth", "professional skill", "professional development"], answer: "professional ethics" }
+                { question: "Anthropological o'zbekcha nima?", options: ["antropologik", "biologik", "kimyoviy", "fizik"], answer: "antropologik" },
+                { question: "Sociological o'zbekcha nima?", options: ["sotsiologik", "psixologik", "texnik", "iqtisodiy"], answer: "sotsiologik" },
+                { question: "Psychological o'zbekcha nima?", options: ["psixologik", "biologik", "ijtimoiy", "iqtisodiy"], answer: "psixologik" },
+                { question: "Philosophical o'zbekcha nima?", options: ["filosofik", "oddiy", "soddagina", "amaliy"], answer: "filosofik" },
+                { question: "Ethical o'zbekcha nima?", options: ["etik", "noetik", "yomon", "axloqsiz"], answer: "etik" },
+                { question: "Aesthetic o'zbekcha nima?", options: ["estetik", "noestetik", "go'zalsiz", "chiroyli"], answer: "estetik" },
+                { question: "Metaphysical o'zbekcha nima?", options: ["metafizik", "fizik", "biologik", "kimyoviy"], answer: "metafizik" },
+                { question: "Transcendental o'zbekcha nima?", options: ["transsendental", "immanent", "oddiy", "soddagina"], answer: "transsendental" },
+                { question: "Dialectical o'zbekcha nima?", options: ["dialektik", "nondialektik", "birtomonlama", "qattiq"], answer: "dialektik" },
+                { question: "Existential o'zbekcha nima?", options: ["ekzistensial", "mavjud emas", "soxta", "xayoliy"], answer: "ekzistensial" },
+                { question: "Phenomenological o'zbekcha nima?", options: ["fenomenologik", "mantiqiy", "xayoliy", "soxta"], answer: "fenomenologik" },
+                { question: "Hermeneutic o'zbekcha nima?", options: ["ermenevtik", "oddiy", "soddagina", "tushunarsiz"], answer: "ermenevtik" },
+                { question: "Structural o'zbekcha nima?", options: ["struktural", "strukturasiz", "buzilgan", "noto'g'ri"], answer: "struktural" },
+                { question: "Poststructural o'zbekcha nima?", options: ["poststruktural", "struktural", "an'anaviy", "qadimiy"], answer: "poststruktural" },
+                { question: "Postmodern o'zbekcha nima?", options: ["postmodern", "modern", "qadimiy", "an'anaviy"], answer: "postmodern" }
             ]
         };
 
-        function submitQuiz() {
-            clearInterval(quizTimer);
-            quizTimer = null;
-            
-            // Calculate score
-            let correctAnswers = 0;
-            let totalQuestions = 0;
-            
-            for (let question in quizQuestions) {
-                totalQuestions++;
-                if (quizAnswers[question.question] === question.answer) {
-                    correctAnswers++;
-                }
-            }
-            
-            const score = Math.round((correctAnswers / totalQuestions) * 100);
-            
-            // Show results
-            document.getElementById("quizLevelSelect").style.display = "none";
-            document.getElementById("quizContent").style.display = "none";
-            document.getElementById("quizResults").style.display = "block";
-            
-            // Update profile statistics
-            const profileData = {
-                totalWords: 467,
-                totalTests: 15,
-                ieltsWords: 125,
-                aiTeacherAccess: true,
-                userLevel: currentLevel,
-                studyStreak: 7,
-                wordsLearned: 234,
-                testsCompleted: 14,
-                averageScore: 85,
-                achievements: ['🎯 Test Ustasi', '📚 Lug\'at Chempioni', '👤 Foydalanuvchi']
-            };
-            
-            const profileContainer = document.getElementById("vocabulary");
-            profileContainer.innerHTML = `
-                <div style="text-align: center; margin-bottom: 20px;">
-                <h2 style="color: #06B6D4; margin-bottom: 30px;">👤 Foydalanuvchi Profili</h2>
-                <div style="background: rgba(255, 255, 255, 0.1); padding: 30px; border-radius: 15px; margin-bottom: 20px;">
-                    <p style="color: #06B6D4; font-size: 1.1em; margin: 5px 0;">Xatolarni to'g'irla qilingan:</p>
-                    <div style="background: rgba(6, 182, 212, 0.1); padding: 15px; border-radius: 8px; margin-top: 10px;">
-                        <div style="color: white; font-size: 1em;">
-                            <strong>🎯 Test Ustasi:</strong> ${profileData.testsCompleted}/${profileData.totalTests} ta test yakunlandi
-                            <br><br>
-                            <strong>📚 Lug'at Chempioni:</strong> ${profileData.wordsLearned} ta so'z o'rganildi
-                            <br><br>
-                            <strong>👤 Foydalanuvchi:</strong> ${profileData.studyStreak} kun ketma-ket
-                            <br><br>
-                            <strong>🤖 AI Teacher:</strong> ✅ Kirishga ruxsat etilgan
-                            <br><br>
-                            <strong>🏆 O'rtacha Ball:</strong> ${profileData.averageScore}%
-                            <br><br>
-                            <strong>� Joriy Daraja:</strong> ${profileData.userLevel}
-                        </div>
-                    </div>
-                </div>
-            `;
-        }
+        const IELTS_WORDS = [
+            { word: "comprehensive", definition: "to'liq, keng qamrovli", example: "A comprehensive study of the topic." },
+            { word: "significant", definition: "muhim, ahamiyatli", example: "A significant improvement in performance." },
+            { word: "fundamental", definition: "asosiy, fundamental", example: "Fundamental principles of economics." },
+            { word: "substantial", definition: "katta, miqdori jihatidan katta", example: "A substantial amount of evidence." },
+            { word: "essential", definition: "muhim, zarur", example: "Essential nutrients for health." },
+            { word: "crucial", definition: "juda muhim, hal qiluvchi", example: "Crucial information for the investigation." },
+            { word: "vital", definition: "hayotiy muhim, zarur", example: "Vital organs in the human body." },
+            { word: "primary", definition: "asosiy, boshqaruvchi", example: "The primary cause of the problem." },
+            { word: "secondary", definition: "ikkinchi darajali, qo'shimcha", example: "Secondary effects of the medication." },
+            { word: "ultimate", definition: "oxirgi, asosiy", example: "The ultimate goal of the project." },
+            { word: "profound", definition: "chuqur, keng", example: "A profound impact on society." },
+            { word: "remarkable", definition: "ajoyib, e'tiborga loyiq", example: "A remarkable achievement." },
+            { word: "exceptional", definition: "mukammal, istisno", example: "Exceptional talent in mathematics." },
+            { word: "outstanding", definition: "mukammal, a'lo", example: "Outstanding performance in the exam." },
+            { word: "extraordinary", definition: "g'ayrioddiy, mo'jizaviy", example: "An extraordinary discovery." }
+        ];
 
+        // Global variables
+        let currentLevel = 'A1';
+        let quizQuestions = [];
+        let currentQuestionIndex = 0;
+        let userAnswers = [];
+        let timer = null;
+        let timeRemaining = 180; // 3 minutes in seconds
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            showLevel('A1');
+            loadUserProfile();
+        });
+
+        // Navigation functions
         function showVocab() {
-            document.getElementById("vocabulary").style.display = "block";
-            document.getElementById("profile").style.display = "none";
-            document.getElementById("quizSection").style.display = "none";
-            document.getElementById("heroSection").style.display = "none";
-            displayWords('A1');
+            document.getElementById('heroSection').style.display = 'none';
+            document.getElementById('vocabulary').style.display = 'block';
+            document.getElementById('quizSection').style.display = 'none';
+            document.getElementById('profile').style.display = 'none';
         }
 
         function showQuiz() {
-            document.getElementById("quizSection").style.display = "block";
-            document.getElementById("vocabulary").style.display = "none";
-            document.getElementById("profile").style.display = "none";
-            document.getElementById("heroSection").style.display = "none";
-            document.getElementById("quizLevelSelect").style.display = "block";
-            document.getElementById("quizContent").style.display = "none";
-            document.getElementById("quizResults").style.display = "none";
+            document.getElementById('heroSection').style.display = 'none';
+            document.getElementById('vocabulary').style.display = 'none';
+            document.getElementById('quizSection').style.display = 'block';
+            document.getElementById('profile').style.display = 'none';
+            showQuizLevelSelect();
+        }
+
+        function showProfile() {
+            document.getElementById('heroSection').style.display = 'none';
+            document.getElementById('vocabulary').style.display = 'none';
+            document.getElementById('quizSection').style.display = 'none';
+            document.getElementById('profile').style.display = 'flex';
+        }
+
+        // User Profile Management Functions
+        function loadUserProfile() {
+            const userProfile = localStorage.getItem('zentrixaUserProfile');
+            if (userProfile) {
+                const profile = JSON.parse(userProfile);
+                updateProfileDisplay(profile);
+            } else {
+                // Set default join date
+                const today = new Date().toLocaleDateString('uz-UZ');
+                document.getElementById('joinDate').textContent = today;
+            }
+        }
+
+        function updateProfileDisplay(profile) {
+            document.getElementById('displayName').textContent = profile.name || 'Mehmon Foydalanuvchi';
+            document.getElementById('displayEmail').textContent = profile.email || 'Email kiritilmagan';
+            document.getElementById('joinDate').textContent = profile.joinDate || new Date().toLocaleDateString('uz-UZ');
+            
+            // Update avatar with user's first letter
+            if (profile.name) {
+                const firstLetter = profile.name.charAt(0).toUpperCase();
+                document.getElementById('avatarDisplay').textContent = firstLetter;
+            }
+            
+            // Update statistics based on user data
+            updateStatistics(profile);
+        }
+
+        function updateStatistics(profile) {
+            // Simulate dynamic statistics based on user level and goals
+            let wordsLearned = 227;
+            let levelsCompleted = 5;
+            let ieltsWords = 125;
+            
+            if (profile.level) {
+                const levelMultipliers = {
+                    'A1': 1,
+                    'A2': 1.5,
+                    'B1': 2,
+                    'B2': 2.5,
+                    'C1': 3
+                };
+                const multiplier = levelMultipliers[profile.level] || 1;
+                wordsLearned = Math.floor(227 * multiplier);
+                levelsCompleted = Math.floor(5 * multiplier);
+                ieltsWords = Math.floor(125 * multiplier);
+            }
+            
+            // Update statistics display
+            const statsElements = document.querySelectorAll('.leaderboard-rank');
+            if (statsElements.length >= 4) {
+                statsElements[0].parentElement.nextElementSibling.textContent = wordsLearned;
+                statsElements[1].parentElement.nextElementSibling.textContent = levelsCompleted;
+                statsElements[2].parentElement.nextElementSibling.textContent = ieltsWords;
+            }
+            
+            // Update achievements based on goals
+            updateAchievements(profile);
+        }
+
+        function updateAchievements(profile) {
+            const achievements = [];
+            
+            if (profile.name) achievements.push('👤 Profil egasi');
+            if (profile.email) achievements.push('📧 Email tasdiqlangan');
+            if (profile.age && profile.age >= 18) achievements.push('🎓 Katta o\'quvchi');
+            if (profile.level) achievements.push('📚 ' + profile.level + ' darajasi');
+            if (profile.goal) {
+                const goalNames = {
+                    'ielts': '🎯 IELTS candidate',
+                    'toefl': '🎯 TOEFL candidate',
+                    'travel': '✈️ Sayohatchi',
+                    'work': '💼 Professional',
+                    'study': '📖 Talaba',
+                    'general': '🌟 Umumiy rivojlanish'
+                };
+                achievements.push(goalNames[profile.goal] || '🌟 Maqsadli');
+            }
+            
+            // Add default achievements
+            achievements.push('🎯 Boshlang\'ich', '📚 Lug\'at master', '🔥 5 kun', '⭐ Test champion');
+            
+            // Update achievements display
+            const achievementContainer = document.querySelector('.leaderboard-item:last-child').parentElement;
+            if (achievementContainer) {
+                const achievementHtml = achievements.slice(0, 6).map(function(achievement) { 
+                    return '<span style="background: linear-gradient(135deg, #06B6D4 0%, #2563EB 100%); color: white; padding: 5px 10px; border-radius: 15px; font-size: 0.8em; margin: 5px; display: inline-block;">' + achievement + '</span>';
+                }).join('');
+                
+                const achievementSection = achievementContainer.parentElement.querySelector('h4').parentElement;
+                if (achievementSection) {
+                    achievementSection.innerHTML += '<div style="display: flex; flex-wrap: wrap; gap: 5px; margin-top: 15px;">' + achievementHtml + '</div>';
+                }
+            }
+        }
+
+        function toggleEditMode() {
+            const userInfoSection = document.getElementById('userInfoSection');
+            const editFormSection = document.getElementById('editFormSection');
+            const editButtonSection = document.getElementById('editButtonSection');
+            
+            if (editFormSection.style.display === 'none') {
+                // Show edit form
+                userInfoSection.style.display = 'none';
+                editFormSection.style.display = 'block';
+                editButtonSection.style.display = 'none';
+                
+                // Load current data into form
+                const userProfile = JSON.parse(localStorage.getItem('zentrixaUserProfile') || '{}');
+                document.getElementById('userName').value = userProfile.name || '';
+                document.getElementById('userEmail').value = userProfile.email || '';
+                document.getElementById('userAge').value = userProfile.age || '';
+                document.getElementById('userLevel').value = userProfile.level || '';
+                document.getElementById('userGoal').value = userProfile.goal || '';
+            } else {
+                // Hide edit form
+                userInfoSection.style.display = 'block';
+                editFormSection.style.display = 'none';
+                editButtonSection.style.display = 'block';
+            }
+        }
+
+        function saveProfile() {
+            const name = document.getElementById('userName').value.trim();
+            const email = document.getElementById('userEmail').value.trim();
+            const age = document.getElementById('userAge').value;
+            const level = document.getElementById('userLevel').value;
+            const goal = document.getElementById('userGoal').value;
+            
+            // Validation
+            if (!name) {
+                alert('Iltimos, ismingizni kiriting!');
+                return;
+            }
+            
+            if (email && !isValidEmail(email)) {
+                alert('Iltimos, to\'g\'ri email manzil kiriting!');
+                return;
+            }
+            
+            if (age && (age < 5 || age > 100)) {
+                alert('Yosh 5 dan 100 gacha bo\'lishi kerak!');
+                return;
+            }
+            
+            // Create profile object
+            const profile = {
+                name: name,
+                email: email,
+                age: age || null,
+                level: level || null,
+                goal: goal || null,
+                joinDate: JSON.parse(localStorage.getItem('zentrixaUserProfile') || '{}').joinDate || new Date().toLocaleDateString('uz-UZ'),
+                lastUpdated: new Date().toISOString()
+            };
+            
+            // Save to localStorage
+            localStorage.setItem('zentrixaUserProfile', JSON.stringify(profile));
+            
+            // Update display
+            updateProfileDisplay(profile);
+            
+            // Hide edit form
+            document.getElementById('userInfoSection').style.display = 'block';
+            document.getElementById('editFormSection').style.display = 'none';
+            document.getElementById('editButtonSection').style.display = 'block';
+            
+            // Show success message
+            showSuccessMessage('Profil muvaffaqiyatli saqlandi!');
+        }
+
+        function cancelEdit() {
+            // Hide edit form
+            document.getElementById('userInfoSection').style.display = 'block';
+            document.getElementById('editFormSection').style.display = 'none';
+            document.getElementById('editButtonSection').style.display = 'block';
+        }
+
+        function isValidEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+
+        function showSuccessMessage(message) {
+            // Create success notification
+            const notification = document.createElement('div');
+            notification.style.cssText = 'position: fixed; top: 20px; right: 20px; background: linear-gradient(135deg, #10b981 0%, #06b6d4 100%); color: white; padding: 15px 20px; border-radius: 8px; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3); z-index: 10000; font-weight: 500; animation: slideInRight 0.3s ease;';
+            notification.textContent = message;
+            
+            document.body.appendChild(notification);
+            
+            // Remove after 3 seconds
+            setTimeout(function() {
+                notification.style.animation = 'slideOutRight 0.3s ease';
+                setTimeout(function() {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 3000);
+        }
+
+        // Add animations for notifications
+        const style = document.createElement('style');
+        style.textContent = '@keyframes slideInRight { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } } @keyframes slideOutRight { from { transform: translateX(0); opacity: 1; } to { transform: translateX(100%); opacity: 0; } }';
+        document.head.appendChild(style);
+
+        // Vocabulary functions
+        function showLevel(level) {
+            currentLevel = level;
+            
+            // Update button states
+            document.querySelectorAll('.level-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // Display words
+            const container = document.getElementById('wordsContainer');
+            container.innerHTML = '';
+            
+            const words = WORDS[level] || [];
+            words.forEach((word, index) => {
+                const card = document.createElement('div');
+                card.className = 'word-card';
+                card.innerHTML = `
+                    <div class="word-uz">${word.uz}</div>
+                    <div class="word-en">${word.en}</div>
+                    <div class="word-hint">Bosing ko'rish uchun</div>
+                `;
+                card.onclick = () => flipCard(card);
+                container.appendChild(card);
+            });
+        }
+
+        function flipCard(card) {
+            card.classList.toggle('flipped');
+        }
+
+        // Quiz functions
+        function showQuizLevelSelect() {
+            document.getElementById('quizLevelSelect').style.display = 'block';
+            document.getElementById('quizContent').style.display = 'none';
+            document.getElementById('quizResults').style.display = 'none';
         }
 
         function startQuiz(level) {
             currentLevel = level;
-            quizQuestions = QUIZ_QUESTIONS[level];
-            quizAnswers = {};
-            quizTimeLeft = 180;
-            quizTimer = null;
+            quizQuestions = QUESTIONS[level] || [];
+            currentQuestionIndex = 0;
+            userAnswers = [];
+            timeRemaining = 180;
             
-            // Hide other sections
-            document.getElementById("vocabulary").style.display = "none";
-            document.getElementById("profile").style.display = "none";
-            document.getElementById("heroSection").style.display = "none";
+            document.getElementById('quizLevelSelect').style.display = 'none';
+            document.getElementById('quizContent').style.display = 'block';
+            document.getElementById('quizResults').style.display = 'none';
             
-            // Show quiz level select
-            document.getElementById("quizLevelSelect").style.display = "block";
-            document.getElementById("quizContent").style.display = "none";
-            document.getElementById("quizResults").style.display = "none";
+            document.getElementById('quizLevelTitle').textContent = 'Test - ' + level + ' Darajasi';
             
-            // Update level select buttons
-            const levelButtons = document.querySelectorAll('.level-btn');
-            levelButtons.forEach(btn => {
-                btn.classList.remove('active');
-                if (btn.textContent.includes(level)) {
-                    btn.classList.add('active');
-                }
-            });
-            
-            // Display first question
-            displayQuestion(1);
             startTimer();
+            displayQuestion();
+        }
+
+        function displayQuestion() {
+            if (currentQuestionIndex >= quizQuestions.length) {
+                submitQuiz();
+                return;
+            }
             
-            displayQuizQuestions();
-            startQuizTimer();
+            const question = quizQuestions[currentQuestionIndex];
+            const container = document.getElementById('questionsContainer');
+            
+            container.innerHTML = '<div class="question-card"><div class="question-text">' + (currentQuestionIndex + 1) + '. ' + question.question + '</div><div class="options">' + question.options.map(function(option, index) { return '<div class="option" onclick="selectAnswer(\'' + option + '\')"><input type="radio" name="answer" value="' + option + '" id="option' + index + '"><label for="option' + index + '">' + option + '</label></div>'; }).join('') + '</div></div>';
+            
+            document.getElementById('quizProgress').textContent = (currentQuestionIndex + 1) + '/' + quizQuestions.length;
         }
 
-        function displayQuizQuestions() {
-            const container = document.getElementById("questionsContainer");
-            container.innerHTML = "";
-
-            quizQuestions.forEach((q, index) => {
-                const questionDiv = document.createElement("div");
-                questionDiv.className = "question-card";
-                questionDiv.innerHTML = `
-            <div class="question-text">${index + 1}. ${q.question}</div>
-            <div class="options">
-                ${q.options.map(option => `
-                    <label class="option">
-                        <input type="radio" name="q${index}" value="${option}">
-                        ${option}
-                    </label>
-                `).join('')}
-            </div>
-        `;
-                container.appendChild(questionDiv);
-            });
+        function selectAnswer(answer) {
+            userAnswers[currentQuestionIndex] = answer;
+            currentQuestionIndex++;
+            displayQuestion();
         }
 
-        function startQuizTimer() {
-            if (quizTimer) clearInterval(quizTimer);
-
-            quizTimer = setInterval(() => {
-                quizTimeLeft--;
-                const timerDisplay = document.getElementById("timerDisplay");
-                timerDisplay.innerText = quizTimeLeft;
-
-                if (quizTimeLeft <= 10) {
-                    timerDisplay.classList.add("warning");
-                }
-                if (quizTimeLeft <= 5) {
-                    timerDisplay.classList.remove("warning");
-                    timerDisplay.classList.add("danger");
-                }
-
-                if (quizTimeLeft <= 0) {
-                    clearInterval(quizTimer);
+        function startTimer() {
+            timer = setInterval(function() {
+                timeRemaining--;
+                updateTimerDisplay();
+                
+                if (timeRemaining <= 0) {
+                    clearInterval(timer);
                     submitQuiz();
                 }
             }, 1000);
         }
 
+        function updateTimerDisplay() {
+            const minutes = Math.floor(timeRemaining / 60);
+            const seconds = timeRemaining % 60;
+            const display = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+            
+            const timerElement = document.getElementById('timerDisplay');
+            timerElement.textContent = display;
+            
+            timerElement.classList.remove('warning', 'danger');
+            if (timeRemaining <= 30) {
+                timerElement.classList.add('danger');
+            } else if (timeRemaining <= 60) {
+                timerElement.classList.add('warning');
+            }
+        }
+
         function submitQuiz() {
-            if (quizTimer) clearInterval(quizTimer);
-
-            let score = 0;
-
-            quizQuestions.forEach((q, index) => {
-                const selected = document.querySelector(`input[name="q${index}"]:checked`);
-                if (selected && selected.value === q.answer) {
-                    score++;
+            clearInterval(timer);
+            
+            let correct = 0;
+            quizQuestions.forEach((question, index) => {
+                if (userAnswers[index] === question.answer) {
+                    correct++;
                 }
             });
-
-            showQuizResults(score);
+            
+            displayResults(correct);
         }
 
-        function showQuizResults(score) {
-            document.getElementById("quizContent").style.display = "none";
-            document.getElementById("quizResults").style.display = "block";
-
+        function displayResults(correct) {
+            document.getElementById('quizContent').style.display = 'none';
+            document.getElementById('quizResults').style.display = 'block';
+            
             const total = quizQuestions.length;
-            const percentage = Math.round((score / total) * 100);
-
-            document.getElementById("resultScore").innerText = `${score}/${total}`;
-
-            let message = "";
-            if (percentage === 100) {
-                message = "🎉 Ajoyib natija! Siz juda yaxshi!";
-            } else if (percentage >= 80) {
-                message = "👏 Yaxshi natija! Davom eting!";
+            const percentage = Math.round((correct / total) * 100);
+            
+            document.getElementById('resultScore').textContent = correct + '/' + total;
+            
+            let message = '';
+            if (percentage >= 80) {
+                message = 'Ajoyib! Siz bu darajada mukammal!';
             } else if (percentage >= 60) {
-                message = "✅ Yetarli natija. Yana harakat qiling!";
+                message = 'Yaxshi natija! Davom eting!';
+            } else if (percentage >= 40) {
+                message = 'Yaxshi, lekin yaxshilash kerak!';
             } else {
-                message = "📚 Ko'proq o'zlashtirishingiz talabgarcha. Qaytadan urinib ko'ring!";
+                message = 'Ko\'proq mashq qiling!';
             }
-
-            document.getElementById("resultMessage").innerText = message;
-
-            // Show sample leaderboard
-            displaySampleLeaderboard(score, total);
-        }
-
-        function displaySampleLeaderboard(score, total) {
-            const leaderboardHTML = `
-        <div class="leaderboard">
-            <h3>🏆 Top Natijalari</h3>
-            <div class="leaderboard-item">
-                <span class="leaderboard-rank">1. Bunyodjon</span>
-                <span>5/5</span>
-            </div>
-            <div class="leaderboard-item">
-                <span class="leaderboard-rank">2. Bekzod</span>
-                <span>4/5</span>
-            </div>
-            <div class="leaderboard-item">
-                <span class="leaderboard-rank">3. Mariya Petrova</span>
-                <span>4/5</span>
-            </div>
-            <div class="leaderboard-item">
-                <span class="leaderboard-rank">4. Johnathan Smith</span>
-                <span>3/5</span>
-            </div>
-            <div class="leaderboard-item">
-                <span class="leaderboard-rank">5. Siz</span>
-                <span>${score}/${total}</span>
-            </div>
-        </div>
-    `;
-            document.getElementById("leaderboardContainer").innerHTML = leaderboardHTML;
+            
+            document.getElementById('resultMessage').textContent = message;
+            
+            // Display leaderboard (mock data)
+            const leaderboardContainer = document.getElementById('leaderboardContainer');
+            leaderboardContainer.innerHTML = '<div class="leaderboard"><h3>🏆 Leaderboard</h3><div class="leaderboard-item"><span class="leaderboard-rank">1. Siz</span><span>' + correct + '/' + total + '</span></div><div class="leaderboard-item"><span class="leaderboard-rank">2. Ali</span><span>' + Math.max(correct - 1, 0) + '/' + total + '</span></div><div class="leaderboard-item"><span class="leaderboard-rank">3. Laylo</span><span>' + Math.max(correct - 2, 0) + '/' + total + '</span></div></div>';
         }
 
         function backToQuizLevel() {
-            if (quizTimer) clearInterval(quizTimer);
-            document.getElementById("quizLevelSelect").style.display = "block";
-            document.getElementById("quizContent").style.display = "none";
+            clearInterval(timer);
+            showQuizLevelSelect();
         }
 
-        function showLevel(level) {
-            currentLevel = level;
-
-            document.querySelectorAll('.level-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            event.target.classList.add('active');
-
-            displayWords(level);
-        }
-
-        function displayWords(level) {
-            const container = document.getElementById('wordsContainer');
-            container.innerHTML = '';
-
-            const words = WORDS[level];
-
-            words.forEach((word) => {
-                const card = document.createElement('div');
-                card.className = 'word-card';
-                card.innerHTML = `
-            <div class="word-uz">${word.uz}</div>
-            <div class="word-en">${word.en}</div>
-            <div class="word-hint">Bosish uchun aylantiring</div>
-        `;
-
-                card.addEventListener('click', function () {
-                    this.classList.toggle('flipped');
-                });
-
-                container.appendChild(card);
-            });
+        // IELTS Word Generator
+        function generateIELTSWord() {
+            const randomWord = IELTS_WORDS[Math.floor(Math.random() * IELTS_WORDS.length)];
+            const modal = document.getElementById('ieltsModal');
+            const wordText = document.getElementById('ieltsWordText');
+            
+            wordText.innerHTML = `
+                <strong>${randomWord.word}</strong> - ${randomWord.definition}
+                
+                <br><br>
+                
+                <em>Misol:</em> ${randomWord.example}
+            `;
+            
+            modal.style.display = 'block';
         }
 
         function closeIELTSModal() {
-            document.getElementById("ieltsModal").style.display = "none";
-            document.getElementById("ieltsWordText").innerText = ""; // Modalni tozalash
+            document.getElementById('ieltsModal').style.display = 'none';
         }
 
-        function showIELTSModal(wordText) {
-            document.getElementById("ieltsWordText").innerText = wordText;
-            document.getElementById("ieltsModal").style.display = "block";
-        }
-
-        // Modal tashqarisiga bosilganda yopish
+        // Close modal when clicking outside
         window.onclick = function(event) {
-            const modal = document.getElementById("ieltsModal");
-            if (event.target == modal) {
-                closeIELTSModal();
+            const modal = document.getElementById('ieltsModal');
+            if (event.target === modal) {
+                modal.style.display = 'none';
             }
-        }
-
-        async function generateIELTSWord() {
-            try {
-                // Har level uchun mos so'zlar
-                const wordsByLevel = {
-                    A1: [
-                        "Word: happy\nMeaning: feeling or showing pleasure or contentment\nExample: She was happy to see her friends after a long time.",
-                        "Word: sad\nMeaning: feeling or showing sorrow; unhappy\nExample: He felt sad when his pet dog died.",
-                        "Word: big\nMeaning: of considerable size or extent\nExample: The elephant is a big animal.",
-                        "Word: small\nMeaning: of a size that is less than average or normal\nExample: The mouse is a small animal.",
-                        "Word: good\nMeaning: to be desired or approved of\nExample: It was a good movie with a great story.",
-                        "Word: bad\nMeaning: of poor quality; not good\nExample: The weather was bad yesterday.",
-                        "Word: hot\nMeaning: having a high degree of heat or a high temperature\nExample: The coffee is too hot to drink right now.",
-                        "Word: cold\nMeaning: of or at a low or relatively low temperature\nExample: Winter days are cold and snowy.",
-                        "Word: fast\nMeaning: moving or capable of moving at high speed\nExample: The cheetah is a fast runner.",
-                        "Word: slow\nMeaning: moving or operating, or designed to move or operate, at a low speed\nExample: The turtle moves very slowly.",
-                        "Word: easy\nMeaning: achieved without great effort; presenting few difficulties\nExample: The test was easy for most students.",
-                        "Word: hard\nMeaning: requiring great effort or endurance\nExample: Learning a new language can be hard.",
-                        "Word: new\nMeaning: produced, introduced, or discovered recently or now for the first time\nExample: She bought a new car last week.",
-                        "Word: old\nMeaning: having lived for a long time; no longer young\nExample: My grandfather is 80 years old.",
-                        "Word: young\nMeaning: having lived or existed for only a short time\nExample: The baby is too young to walk.",
-                        "Word: clean\nMeaning: free from dirt, marks, or stains\nExample: Please keep your room clean and tidy.",
-                        "Word: dirty\nMeaning: covered or marked with an unclean substance\nExample: The children came home with dirty clothes.",
-                        "Word: rich\nMeaning: having a great deal of money or assets; wealthy\nExample: The rich man donated money to charity.",
-                        "Word: poor\nMeaning: lacking sufficient money to live at a standard considered comfortable or normal\nExample: The poor family needed help from the community.",
-                        "Word: light\nMeaning: not heavy in weight\nExample: This box is light enough to carry easily.",
-                        "Word: heavy\nMeaning: of great weight; difficult to lift or move\nExample: The piano is too heavy to move alone.",
-                        "Word: long\nMeaning: measuring a great distance from end to end\nExample: The road is long and winding.",
-                        "Word: short\nMeaning: measuring a small distance from end to end\nExample: She has short hair.",
-                        "Word: tall\nMeaning: of great or more than average height\nExample: The basketball player is very tall.",
-                        "Word: high\nMeaning: of great vertical extent\nExample: The mountain is high and dangerous to climb."
-                    ],
-                    A2: [
-                        "Word: beautiful\nMeaning: pleasing to the senses or mind aesthetically\nExample: The sunset was beautiful with orange and pink colors.",
-                        "Word: important\nMeaning: of great significance or value; likely to have a profound effect\nExample: Sleep is important for good health.",
-                        "Word: interesting\nMeaning: arousing curiosity or interest; holding or catching the attention\nExample: The book was very interesting from beginning to end.",
-                        "Word: difficult\nMeaning: needing much effort or skill to accomplish, deal with, or understand\nExample: The math problem was difficult to solve.",
-                        "Word: expensive\nMeaning: costing a lot of money\nExample: The restaurant was too expensive for our budget.",
-                        "Word: cheap\nMeaning: low in price; worth more than its cost\nExample: The market sells fresh vegetables at cheap prices.",
-                        "Word: delicious\nMeaning: highly pleasant to the taste\nExample: The cake was delicious and everyone wanted more.",
-                        "Word: comfortable\nMeaning: providing physical ease and relaxation\nExample: The chair was comfortable for reading.",
-                        "Word: dangerous\nMeaning: able or likely to cause harm or injury\nExample: Walking alone at night can be dangerous.",
-                        "Word: safe\nMeaning: protected from or not exposed to danger or risk\nExample: The neighborhood is safe for children to play outside.",
-                        "Word: famous\nMeaning: known about by many people; acclaimed\nExample: The famous actor visited our school yesterday.",
-                        "Word: popular\nMeaning: liked or admired by many people or by a particular person or group\nExample: The new restaurant is very popular among young people.",
-                        "Word: successful\nMeaning: accomplishing a desired aim or result\nExample: She was successful in her business career.",
-                        "Word: healthy\nMeaning: in a good physical or mental condition; in good health\nExample: Eating vegetables and exercising keeps you healthy.",
-                        "Word: unhealthy\nMeaning: not conducive to good health; detrimental to health\nExample: Fast food is unhealthy if eaten too often.",
-                        "Word: modern\nMeaning: relating to recent times or the present; not ancient\nExample: The building has a modern design with glass walls.",
-                        "Word: traditional\nMeaning: existing in or as part of a tradition; long-established\nExample: The wedding followed traditional customs.",
-                        "Word: natural\nMeaning: existing in or caused by nature; not made or caused by humankind\nExample: The forest has many natural plants and animals.",
-                        "Word: artificial\nMeaning: made or produced by human beings rather than occurring naturally\nExample: The flowers looked so real but they were artificial.",
-                        "Word: public\nMeaning: of or concerning the people as a whole\nExample: The park is a public space for everyone to enjoy.",
-                        "Word: private\nMeaning: belonging to or for the use of one particular person or group only\nExample: The meeting was held in a private room.",
-                        "Word: official\nMeaning: relating to an authority or public body and its duties, actions, and responsibilities\nExample: He received an official letter from the government.",
-                        "Word: personal\nMeaning: belonging to or affecting a particular person rather than anyone else\nExample: Don't read my personal diary without permission.",
-                        "Word: general\nMeaning: affecting or concerning all or most people or things; widespread\nExample: The general opinion was that the movie was excellent.",
-                        "Word: specific\nMeaning: clearly defined or identified\nExample: Please give me specific instructions for this task."
-                    ],
-                    B1: [
-                        "Word: efficient\nMeaning: working in a well-organized and competent way\nExample: The new system is more efficient than the old one.",
-                        "Word: effective\nMeaning: successful in producing a desired or intended result\nExample: The medicine was effective in treating the illness.",
-                        "Word: significant\nMeaning: sufficiently great or important to be worthy of attention; noteworthy\nExample: The discovery had a significant impact on science.",
-                        "Word: essential\nMeaning: absolutely necessary; extremely important\nExample: Water is essential for all living things.",
-                        "Word: sufficient\nMeaning: enough; adequate\nExample: Do you have sufficient money for the trip?",
-                        "Word: adequate\nMeaning: satisfactory or acceptable in quality or quantity\nExample: The hotel room was adequate for our needs.",
-                        "Word: convenient\nMeaning: fitting in well with a person's needs, activities, and plans\nExample: The online shopping system is very convenient.",
-                        "Word: available\nMeaning: able to be used or obtained; at someone's disposal\nExample: The doctor is available for appointments tomorrow.",
-                        "Word: reliable\nMeaning: consistently good in quality or performance; able to be trusted\nExample: My car is old but very reliable.",
-                        "Word: responsible\nMeaning: having an obligation to do something as part of one's job or role\nExample: She is responsible for managing the team.",
-                        "Word: flexible\nMeaning: capable of bending easily without breaking\nExample: The schedule is flexible and can be changed if needed.",
-                        "Word: stable\nMeaning: not likely to change or fail; firmly established\nExample: The economy has been stable for the past year.",
-                        "Word: complex\nMeaning: consisting of many different and connected parts\nExample: The human brain is a complex organ.",
-                        "Word: simple\nMeaning: easily understood or done; presenting no difficulty\nExample: The instructions were simple and clear.",
-                        "Word: advanced\nMeaning: far on in progress or development\nExample: She is taking advanced courses in mathematics.",
-                        "Word: basic\nMeaning: forming an essential foundation; fundamental\nExample: You need to learn the basic skills first.",
-                        "Word: technical\nMeaning: relating to a particular subject, art, or craft, or its techniques\nExample: The manual contains technical information about the machine.",
-                        "Word: practical\nMeaning: concerned with the actual doing or use of something rather than with theory\nExample: She has practical experience in teaching.",
-                        "Word: theoretical\nMeaning: concerned with or involving the theory of a subject\nExample: The course covers both theoretical and practical aspects.",
-                        "Word: academic\nMeaning: relating to education and scholarship\nExample: She has an excellent academic record.",
-                        "Word: professional\nMeaning: relating to a job that needs special training or skill\nExample: He received professional training as a doctor.",
-                        "Word: commercial\nMeaning: concerned with or engaged in commerce\nExample: The building has both residential and commercial spaces.",
-                        "Word: industrial\nMeaning: relating to industry or manufacturing\nExample: The city has many industrial factories.",
-                        "Word: cultural\nMeaning: relating to the ideas, customs, and social behavior of a society\nExample: The museum displays cultural artifacts from different countries.",
-                        "Word: environmental\nMeaning: relating to the natural world and the impact of human activity on its condition\nExample: We need to address environmental problems immediately."
-                    ],
-                    B2: [
-                        "Word: innovative\nMeaning: featuring new methods; advanced and original\nExample: The company is known for its innovative products.",
-                        "Word: sophisticated\nMeaning: having great worldly knowledge, experience, and refinement\nExample: She has sophisticated taste in art and music.",
-                        "Word: comprehensive\nMeaning: complete; including all or nearly all elements\nExample: The report provides a comprehensive analysis of the situation.",
-                        "Word: substantial\nMeaning: of considerable importance, size, or worth\nExample: There was a substantial increase in sales this year.",
-                        "Word: considerable\nMeaning: notably large in size, quantity, or extent\nExample: The project required considerable time and effort.",
-                        "Word: moderate\nMeaning: average in amount, intensity, degree, or quality\nExample: The climate here is moderate throughout the year.",
-                        "Word: extreme\nMeaning: reaching a high or the highest degree; very great\nExample: The athletes train in extreme conditions.",
-                        "Word: intensive\nMeaning: concentrated on a single area or subject; very thorough\nExample: She took an intensive course to learn Spanish quickly.",
-                        "Word: extensive\nMeaning: covering or affecting a large area\nExample: The storm caused extensive damage to the city.",
-                        "Word: precise\nMeaning: marked by exactness and accuracy of expression or detail\nExample: The measurements need to be precise for the experiment.",
-                        "Word: accurate\nMeaning: correct in all details; exact\nExample: The weather forecast was surprisingly accurate.",
-                        "Word: approximate\nMeaning: close to the actual, but not completely accurate or exact\nExample: The approximate cost of the project is $50,000.",
-                        "Word: inevitable\nMeaning: unavoidable; certain to happen\nExample: Change is inevitable in today's fast-paced world.",
-                        "Word: potential\nMeaning: having or showing the capacity to become or develop into something in the future\nExample: The young athlete shows great potential.",
-                        "Word: apparent\nMeaning: clearly visible or understood; obvious\nExample: It was apparent that she was nervous about the presentation.",
-                        "Word: evident\nMeaning: clearly seen or understood; obvious\nExample: The evidence made it evident that he was innocent.",
-                        "Word: obvious\nMeaning: easily perceived or understood; clear\nExample: The solution to the problem was obvious to everyone.",
-                        "Word: subtle\nMeaning: so delicate or precise as to be difficult to analyze or describe\nExample: There were subtle changes in her behavior.",
-                        "Word: explicit\nMeaning: stated clearly and in detail; leaving no room for confusion\nExample: The instructions were explicit and easy to follow.",
-                        "Word: implicit\nMeaning: implied though not directly expressed; inherent\nExample: There was an implicit understanding between them.",
-                        "Word: ambiguous\nMeaning: open to more than one interpretation; not having one obvious meaning\nExample: The ambiguous statement caused confusion among the audience.",
-                        "Word: coherent\nMeaning: logical and consistent; making sense\nExample: Her argument was coherent and well-supported.",
-                        "Word: consistent\nMeaning: acting or done in the same way over time\nExample: His work has always been consistent in quality.",
-                        "Word: compatible\nMeaning: able to exist or work together without conflict\nExample: The new software is compatible with older systems.",
-                        "Word: incompatible\nMeaning: not able to exist or work together without conflict\nExample: Their different schedules made them incompatible as roommates."
-                    ],
-                    C1: [
-                        "Word: meticulous\nMeaning: showing great attention to detail; very careful and precise\nExample: She was meticulous in her research, checking every source twice.",
-                        "Word: ubiquitous\nMeaning: present, appearing, or found everywhere\nExample: Smartphones have become ubiquitous in modern society.",
-                        "Word: paradigm\nMeaning: a typical example or pattern of something; a model\nExample: The company's success represents a new paradigm in business.",
-                        "Word: plethora\nMeaning: a large or excessive amount of something\nExample: There was a plethora of information available on the topic.",
-                        "Word: ephemeral\nMeaning: lasting for a very short time\nExample: The beauty of cherry blossoms is ephemeral but breathtaking.",
-                        "Word: ambiguous\nMeaning: open to more than one interpretation; not having one obvious meaning\nExample: The ambiguous wording of the contract led to confusion.",
-                        "Word: resilient\nMeaning: able to withstand or recover quickly from difficult conditions\nExample: She proved to be remarkably resilient after the setback.",
-                        "Word: pragmatic\nMeaning: dealing with things sensibly and realistically\nExample: We need a pragmatic approach to solve this problem.",
-                        "Word: eloquent\nMeaning: fluent or persuasive in speaking or writing\nExample: She gave an eloquent speech that moved the audience.",
-                        "Word: succinct\nMeaning: briefly and clearly expressed; concise\nExample: The report was succinct but comprehensive.",
-                        "Word: corroborate\nMeaning: confirm with additional evidence\nExample: The witness testimony helped corroborate the defendant's alibi.",
-                        "Word: exacerbate\nMeaning: make a problem or bad situation worse\nExample: The new policy only served to exacerbate the existing tensions.",
-                        "Word: alleviate\nMeaning: make suffering less severe\nExample: The medicine was prescribed to alleviate the patient's pain.",
-                        "Word: conundrum\nMeaning: a confusing and difficult problem\nExample: The detective faced a conundrum when evidence pointed to different suspects.",
-                        "Word: mitigate\nMeaning: make something less severe\nExample: The company took steps to mitigate the environmental impact.",
-                        "Word: juxtaposition\nMeaning: two things placed close together with contrasting effect\nExample: The juxtaposition of old and new architecture created visual contrast.",
-                        "Word: benevolent\nMeaning: well meaning and kindly\nExample: The benevolent donor funded scholarships for students.",
-                        "Word: malevolent\nMeaning: having a wish to do evil things to others\nExample: The malevolent character plotted against the protagonist.",
-                        "Word: clandestine\nMeaning: kept secret or done secretively\nExample: The clandestine meeting took place in an abandoned warehouse.",
-                        "Word: ostentatious\nMeaning: characterized by pretentious display\nExample: His ostentatious display of wealth made others uncomfortable.",
-                        "Word: gregarious\nMeaning: fond of company; sociable\nExample: Her gregarious nature made her popular at social gatherings.",
-                        "Word: astute\nMeaning: able to assess situations accurately\nExample: The astute businessman anticipated market changes.",
-                        "Word: naive\nMeaning: showing lack of experience or judgment\nExample: Her naive belief that everyone was honest led to deception.",
-                        "Word: profound\nMeaning: having great knowledge or insight\nExample: The professor's profound insights changed how students viewed the subject.",
-                        "Word: tangible\nMeaning: perceptible by touch; clear and definite\nExample: The tangible benefits of the policy were immediately visible.",
-                        "Word: intangible\nMeaning: unable to be touched or grasped\nExample: Love and happiness are intangible concepts."
-                    ]
-                };
-                
-                // Joriy levelni aniqlash (default C1)
-                const currentLevel = 'C1'; // Bu yerda joriy levelni olish kerak
-                const testWords = wordsByLevel[currentLevel] || wordsByLevel.C1;
-                
-                // To'g'ri tasodifiylik uchun
-                const randomIndex = Math.floor(Math.random() * testWords.length);
-                const randomWord = testWords[randomIndex];
-                
-                console.log("Level:", currentLevel, "Total words:", testWords.length, "Random index:", randomIndex, "Word:", randomWord.split('\n')[0]); // Debug
-                
-                showIELTSModal(randomWord);
-            } catch (error) {
-                console.error("Error generating IELTS word:", error);
-                alert("IELTS so'zini yaratishda xatolik yuz berdi.");
-            }
-        }
-
-        async function register() {
-            // Funksiya olib tashlandi - endi ro'yxatdan o'tish kerak emas
-            console.log("Registration is not required - direct access enabled");
-        }
-
-        async function login() {
-            // Funksiya olib tashlandi - endi login kerak emas
-            console.log("Login is not required - direct access enabled");
         }
     </script>
-</body>
 
+</body>
 </html>
+
