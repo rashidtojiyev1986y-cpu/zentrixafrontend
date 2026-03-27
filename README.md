@@ -1679,41 +1679,71 @@
         }
 
         function displayQuizQuestions() {
+            // Clear container
             const container = document.getElementById("questionsContainer");
             container.innerHTML = "";
+            
+            // Display current question only
+            displayCurrentQuestion();
+        }
 
-            quizQuestions.forEach((q, index) => {
-                const questionDiv = document.createElement("div");
-                questionDiv.className = "question-card";
-                questionDiv.innerHTML = `
-            <div class="question-text">${index + 1}. ${q.question}</div>
-            <div class="options">
-                ${q.options.map(option => `
-                    <label class="option">
-                        <input type="radio" name="q${index}" value="${option}">
-                        ${option}
-                    </label>
-                `).join('')}
-            </div>
-        `;
-                container.appendChild(questionDiv);
+        function displayCurrentQuestion() {
+            if (currentQuestionIndex >= quizQuestions.length) {
+                submitQuiz();
+                return;
+            }
+            
+            const question = quizQuestions[currentQuestionIndex];
+            const container = document.getElementById("questionsContainer");
+            
+            let optionsHtml = '';
+            question.options.forEach(function(option, index) {
+                optionsHtml += '<div class="option" onclick="selectAnswer(\'' + option.replace(/'/g, "\\'") + '\', ' + index + ')"><input type="radio" name="answer" value="' + option.replace(/'/g, "\\'") + '" id="option' + index + '"><label for="option' + index + '">' + option + '</label></div>';
             });
+            
+            container.innerHTML = '<div class="question-card"><div class="question-text">' + (currentQuestionIndex + 1) + '. ' + question.question + '</div><div class="options">' + optionsHtml + '</div><div style="text-align: center; margin-top: 20px;"><button onclick="nextQuestion()" class="submit-btn">Keyingi savol</button></div></div>';
+            
+            // Update progress
+            document.getElementById("quizProgress").textContent = (currentQuestionIndex + 1) + '/' + quizQuestions.length;
+        }
+
+        function selectAnswer(answer, index) {
+            // Clear previous selection
+            document.querySelectorAll('input[name="answer"]').forEach(function(radio) {
+                radio.checked = false;
+            });
+            
+            // Mark selected radio
+            document.getElementById('option' + index).checked = true;
+            
+            userAnswers[currentQuestionIndex] = answer;
+        }
+
+        function nextQuestion() {
+            // Check if answer is selected
+            if (!userAnswers[currentQuestionIndex]) {
+                alert('Iltimos, javobni tanlang!');
+                return;
+            }
+            
+            currentQuestionIndex++;
+            displayCurrentQuestion();
         }
 
         function startQuizTimer() {
             if (quizTimer) clearInterval(quizTimer);
 
-            quizTimer = setInterval(() => {
+            quizTimer = setInterval(function() {
                 quizTimeLeft--;
                 const timerDisplay = document.getElementById("timerDisplay");
-                timerDisplay.innerText = quizTimeLeft;
+                const minutes = Math.floor(quizTimeLeft / 60);
+                const seconds = quizTimeLeft % 60;
+                timerDisplay.innerText = minutes + ':' + (seconds < 10 ? '0' : '') + seconds;
 
-                if (quizTimeLeft <= 10) {
-                    timerDisplay.classList.add("warning");
-                }
-                if (quizTimeLeft <= 5) {
-                    timerDisplay.classList.remove("warning");
+                if (quizTimeLeft <= 30) {
                     timerDisplay.classList.add("danger");
+                } else if (quizTimeLeft <= 60) {
+                    timerDisplay.classList.add("warning");
                 }
 
                 if (quizTimeLeft <= 0) {
@@ -1728,8 +1758,8 @@
 
             let score = 0;
 
-            quizQuestions.forEach((q, index) => {
-                const selected = document.querySelector(`input[name="q${index}"]:checked`);
+            quizQuestions.forEach(function(q, index) {
+                const selected = document.querySelector('input[name="q' + index + '"]:checked');
                 if (selected && selected.value === q.answer) {
                     score++;
                 }
@@ -1745,7 +1775,7 @@
             const total = quizQuestions.length;
             const percentage = Math.round((score / total) * 100);
 
-            document.getElementById("resultScore").innerText = `${score}/${total}`;
+            document.getElementById("resultScore").innerText = score + '/' + total;
 
             let message = "";
             if (percentage === 100) {
@@ -1948,7 +1978,7 @@
                         "Word: extensive\nMeaning: covering or affecting a large area\nExample: The storm caused extensive damage to the city.",
                         "Word: precise\nMeaning: marked by exactness and accuracy of expression or detail\nExample: The measurements need to be precise for the experiment.",
                         "Word: accurate\nMeaning: correct in all details; exact\nExample: The weather forecast was surprisingly accurate.",
-                        "Word: approximate\nMeaning: close to the actual, but not completely accurate or exact\nExample: The approximate cost of the project is $50,000.",
+                        "Word: approximate\nMeaningh: close to the actual, but not completely accurate or exact\nExample: The approximate cost of the project is $50,000.",
                         "Word: inevitable\nMeaning: unavoidable; certain to happen\nExample: Change is inevitable in today's fast-paced world.",
                         "Word: potential\nMeaning: having or showing the capacity to become or develop into something in the future\nExample: The young athlete shows great potential.",
                         "Word: apparent\nMeaning: clearly visible or understood; obvious\nExample: It was apparent that she was nervous about the presentation.",
