@@ -1355,7 +1355,8 @@
 
         let currentLevel = 'A1';
         let quizQuestions = [];
-        let quizAnswers = {};
+        let currentQuestionIndex = 0;
+        let userAnswers = [];
         let quizTimeLeft = 180;
         let quizTimer = null;
 
@@ -1647,7 +1648,8 @@
         function startQuiz(level) {
             currentLevel = level;
             quizQuestions = QUIZ_QUESTIONS[level];
-            quizAnswers = {};
+            currentQuestionIndex = 0;
+            userAnswers = [];
             quizTimeLeft = 180;
             quizTimer = null;
             
@@ -1656,38 +1658,66 @@
             document.getElementById("profile").style.display = "none";
             document.getElementById("heroSection").style.display = "none";
             
-            // Show quiz level select
-            document.getElementById("quizLevelSelect").style.display = "block";
-            document.getElementById("quizContent").style.display = "none";
+            // Show quiz content
+            document.getElementById("quizLevelSelect").style.display = "none";
+            document.getElementById("quizContent").style.display = "block";
             document.getElementById("quizResults").style.display = "none";
             
             // Update level select buttons
             const levelButtons = document.querySelectorAll('.level-btn');
-            levelButtons.forEach(btn => {
+            levelButtons.forEach(function(btn) {
                 btn.classList.remove('active');
                 if (btn.textContent.includes(level)) {
                     btn.classList.add('active');
                 }
             });
             
-            // Display first question
-            displayQuestion(1);
-            startTimer();
-            
-            displayQuizQuestions();
+            // Display first question and start timer
+            displayCurrentQuestion();
             startQuizTimer();
         }
 
-        function displayQuizQuestions() {
+        function displayCurrentQuestion() {
+            if (currentQuestionIndex >= quizQuestions.length) {
+                submitQuiz();
+                return;
+            }
+            
+            const question = quizQuestions[currentQuestionIndex];
             const container = document.getElementById("questionsContainer");
-            container.innerHTML = "";
-
-            quizQuestions.forEach(function(q, index) {
-                const questionDiv = document.createElement("div");
-                questionDiv.className = "question-card";
-                questionDiv.innerHTML = '<div class="question-text">' + (index + 1) + '. ' + q.question + '</div><div class="options">' + q.options.map(function(option) { return '<label class="option"><input type="radio" name="q' + index + '" value="' + option + '">' + option + '</label>'; }).join('') + '</div>';
-                container.appendChild(questionDiv);
+            
+            let optionsHtml = '';
+            question.options.forEach(function(option, index) {
+                optionsHtml += '<div class="option" onclick="selectAnswer(\'' + option.replace(/'/g, "\\'") + '\', ' + index + ')"><input type="radio" name="answer" value="' + option.replace(/'/g, "\\'") + '" id="option' + index + '"><label for="option' + index + '">' + option + '</label></div>';
             });
+            
+            container.innerHTML = '<div class="question-card"><div class="question-text">' + (currentQuestionIndex + 1) + '. ' + question.question + '</div><div class="options">' + optionsHtml + '</div><div style="text-align: center; margin-top: 20px;"><button onclick="nextQuestion()" class="submit-btn">Keyingi savol</button></div></div>';
+            
+            // Update progress
+            document.getElementById("quizProgress").textContent = (currentQuestionIndex + 1) + '/' + quizQuestions.length;
+        }
+
+        function selectAnswer(answer, index) {
+            // Clear previous selection
+            document.querySelectorAll('input[name="answer"]').forEach(function(radio) {
+                radio.checked = false;
+            });
+            
+            // Mark selected radio
+            document.getElementById('option' + index).checked = true;
+            
+            userAnswers[currentQuestionIndex] = answer;
+        }
+
+        function nextQuestion() {
+            // Check if answer is selected
+            if (!userAnswers[currentQuestionIndex]) {
+                alert('Iltimos, javobni tanlang!');
+                return;
+            }
+            
+            currentQuestionIndex++;
+            displayCurrentQuestion();
         }
 
         function startQuizTimer() {
@@ -1696,14 +1726,14 @@
             quizTimer = setInterval(function() {
                 quizTimeLeft--;
                 const timerDisplay = document.getElementById("timerDisplay");
-                timerDisplay.innerText = quizTimeLeft;
+                const minutes = Math.floor(quizTimeLeft / 60);
+                const seconds = quizTimeLeft % 60;
+                timerDisplay.innerText = minutes + ':' + (seconds < 10 ? '0' : '') + seconds;
 
-                if (quizTimeLeft <= 10) {
-                    timerDisplay.classList.add("warning");
-                }
-                if (quizTimeLeft <= 5) {
-                    timerDisplay.classList.remove("warning");
+                if (quizTimeLeft <= 30) {
                     timerDisplay.classList.add("danger");
+                } else if (quizTimeLeft <= 60) {
+                    timerDisplay.classList.add("warning");
                 }
 
                 if (quizTimeLeft <= 0) {
@@ -1719,8 +1749,7 @@
             let score = 0;
 
             quizQuestions.forEach(function(q, index) {
-                const selected = document.querySelector('input[name="q' + index + '"]:checked');
-                if (selected && selected.value === q.answer) {
+                if (userAnswers[index] === q.answer) {
                     score++;
                 }
             });
@@ -1938,7 +1967,7 @@
                         "Word: extensive\nMeaning: covering or affecting a large area\nExample: The storm caused extensive damage to the city.",
                         "Word: precise\nMeaning: marked by exactness and accuracy of expression or detail\nExample: The measurements need to be precise for the experiment.",
                         "Word: accurate\nMeaning: correct in all details; exact\nExample: The weather forecast was surprisingly accurate.",
-                        "Word: approximate\nMeaning: close to the actual, but not completely accurate or exact\nExample: The approximate cost of the project is $50,000.",
+                        "Word: approximate\nMeaningh: close to the actual, but not completely accurate or exact\nExample: The approximate cost of the project is $50,000.",
                         "Word: inevitable\nMeaning: unavoidable; certain to happen\nExample: Change is inevitable in today's fast-paced world.",
                         "Word: potential\nMeaning: having or showing the capacity to become or develop into something in the future\nExample: The young athlete shows great potential.",
                         "Word: apparent\nMeaning: clearly visible or understood; obvious\nExample: It was apparent that she was nervous about the presentation.",
@@ -2013,5 +2042,4 @@
 </body>
 
 </html>
-
 
